@@ -1,0 +1,34 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-calendar
+    = t 'activerecord.models.contest.other'
+  .columns
+    %aside.column.is-3
+      = form_with scope: 'filter', url: list_contests_path, method: :get, data: {turbo_frame: 'contests', controller: 'form', form_target: 'sender'} do |f|
+        %nav.panel
+          %p.panel-heading= t 'site.contests.index.search'
+          .panel-block
+            %p.control.has-icons-left
+              = f.text_field :text, placeholder: 'Testo', class: 'input', data: {action: 'keyup->form#delayedSendForm'}
+              %span.icon.is-left
+                %i.fa-solid.fa-search
+          %label.panel-block
+            = f.radio_button :type, '', selected: true, data: {action: "form#sendForm"}
+            %span= t('active', scope: 'site.contests.scope')
+          %label.panel-block
+            = f.radio_button :type, 'ended', data: {action: "form#sendForm"}
+            %span= t('ended', scope: 'site.contests.scope')
+        - if @groups.present?
+          %nav.panel
+            %p.panel-heading= t 'site.generic.groups'
+            - @groups.each do |group|
+              %label.panel-block
+                = f.radio_button :group, group.id, data: {action: "form#sendForm"}
+                %span= group.title
+            %label.panel-block
+              = f.radio_button :group, '', selected: true, data: {action: "form#sendForm"}
+              %span= t('site.generic.all')
+
+    .column
+      %turbo-frame#contests{src: list_contests_path}
+

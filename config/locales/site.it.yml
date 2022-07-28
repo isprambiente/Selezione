@@ -1,0 +1,31 @@
+it:
+  site:
+    generic:
+      all: Tutti
+      back: Indietro
+      from: da
+      groups: Gruppi
+      login: Accedi
+      login_button: Accedi per continuare
+      logout: Disconnettiti
+      manage: Manage
+      reservable: Prenotabile
+      reserve: Prenota
+      reserved_abort: Annulla prenotazione
+      reserved_abort_confirm: Attenzione! Vuoi veramente annullare la prenotazione 
+      reserved_ended: Prenotazioni terminate
+      reserved_seat: Posti prenotati
+      save: Save
+      search: Ricerca
+      text: Testo
+      to: a
+    contests:
+      index: 
+        search: Ricerca concorsi
+      scope:
+        active: Attivi
+        ended: Scaduti
+      search: Ricerca eventi
+    admin:
+    editor:
+    committee: 

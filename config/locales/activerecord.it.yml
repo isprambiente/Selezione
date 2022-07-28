@@ -1,0 +1,39 @@
+it:
+  activerecord:
+    errors:
+      models:
+        fact:
+          attributes:
+            title:
+              required: Il titolo è richiesto
+    attributes:
+      area:
+        code: Codice
+        title: Titolo
+      contest:
+        code: Codice
+        title: Titolo
+        start_at: Inizio
+        stop_at: Scadenza
+        areas_max_choice: Numero massimo di aree selezionabili
+      profile:
+        code: Codice
+        title: Titolo
+        careers_enabled: Periodi lavorativi
+        careers_requested: Periodi lavorativi richiesti
+        qualifications_enabled: Titoli di studio
+        qualifications_requested: Titoli di studio richiesti
+        qualifications_alternative: Titoli di studio alternativi ai periodi lavorativi
+        others_enabled: Altri titoli
+
+    models:
+      area:
+        one: Area
+        other: Aree
+      contest:
+        one: Concorso
+        other: Concorsi
+      profile:
+        one: Profilo
+        other: Profili
+
