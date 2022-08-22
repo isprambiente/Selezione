@@ -34,6 +34,8 @@
 # @!attribute [rw] body
 #  @return [Object] ActionText instance
 #
+# @!method self.by_start()
+#   return [Array] list of contest ordered by start_at
 # @!method self.future(opts = {time: Time.zone.now})
 #   @param [Hash] opts options to be used in query
 #   @option opts [Datetime] :time (Time.zone.now) start date for query
@@ -71,7 +73,7 @@ class Contest < ApplicationRecord
 
   has_many :areas, dependent: :destroy
   has_many :profiles, through: :areas
-  has_many :requests, through: :profiles, source: :area
+  has_many :requests, through: :profiles, source: :requests
   has_rich_text :body
   accepts_nested_attributes_for :areas
 
@@ -82,7 +84,7 @@ class Contest < ApplicationRecord
   validates :areas_max_choice, presence: true, numericality: { only_integer: true, greater_than: 0 }
   before_validation :populate!, on: :create
 
-  default_scope { order('start_at desc') }
+  scope :by_start, -> { order('start_at desc') }
   scope :future, ->(time: Time.zone.now) { where 'start_at > :time', time: time }
   scope :active, ->(time: Time.zone.now) { where 'start_at <= :time and stop_at >= :time', time: time }
   scope :ended, ->(time: Time.zone.now) { where 'stop_at < :time', time: time }
