@@ -5,26 +5,63 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
 Contest.destroy_all
+Template.destroy_all
+Template.create title: 'example', data: {
+  areas_max_choice: 1,
+  areas_attributes: [
+    {
+      code: 'a01',
+      title: 'area one',
+      profiles_max_choice: 1,
+      profiles_attributes: [
+        {
+          code: 'p01',
+          title: 'Profile one',
+          careers_enabled: true,
+          careers_requested: 12,
+          qualifications_enabled: true,
+          qualifications_requested: [],
+          qualifications_alternative: [],
+          sections_attributes: [
+            {
+              title: 'Section one', weight: 0
+            },
+            {
+              title: 'Section two', weight: 0
+            }
+          ],
+        }
+      ]
+    },{
+      code: 'a02',
+      title: 'area two',
+      profiles_max_choice: 1,
+      profiles_attributes: [
+        {
+          code: 'p01',
+          title: 'Profile one',
+          careers_enabled: true,
+          careers_requested: 12,
+          qualifications_enabled: true,
+          qualifications_requested: [],
+          qualifications_alternative: [],
+          sections_attributes: [
+            {
+              title: 'Section one', weight: 0
+            },
+            {
+              title: 'Section two', weight: 0
+            }
+          ],
+        }
+      ]
+
+    }
+  ]
+}
 2.times do 
-  c = FactoryBot.create :contest
-  2.times do
-    a = FactoryBot.create :area, contest: c
-    2.times { FactoryBot.create :profile, area: a }
-  end
-end
-2.times do 
-  c = FactoryBot.create :contest_future
-  2.times do
-    a = FactoryBot.create :area, contest: c
-    2.times { FactoryBot.create :profile, area: a }
-  end
-end
-2.times do 
-  c = FactoryBot.create :contest_ended
-  2.times do
-    a = FactoryBot.create :area, contest: c
-    2.times { FactoryBot.create :profile, area: a }
-  end
+  c = FactoryBot.create :contest, template_id: Template.first.id
 end
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  sequence(:profile_title) {|n| "title_#{n}"}
+  sequence(:profile_title) { |n| "title_#{n}" }
   factory :profile do
     area
     title { generate(:profile_title) }

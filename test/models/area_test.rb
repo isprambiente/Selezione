@@ -8,7 +8,7 @@ class AreaTest < ActiveSupport::TestCase
     assert area.valid?
     assert area.save
   end
-  
+
   # relations
   test 'belongs to contest' do
     area = create :area
@@ -58,10 +58,9 @@ class AreaTest < ActiveSupport::TestCase
   # scope
   test 'default scope' do
     b = create :area, title: 'b'
-    c = create :area, title: 'c'
     a = create :area, title: 'a'
-    assert_equal 3, Area.all.count
+    assert_equal 2, Area.all.count
     assert_equal a, Area.all.first
-    assert_equal c, Area.all.last
+    assert_equal b, Area.all.last
   end
 end

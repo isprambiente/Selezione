@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This model manage the {Profile} object. A {Profile} is a job offer,
-# each {Profile} has specific partecipation prerequisites and conditions. 
+# each {Profile} has specific partecipation prerequisites and conditions.
 # Each {Profile} is referenced to an {Contest} through an {Area}
 #
 # === Relations
@@ -23,7 +23,7 @@
 # @!attribute [rw] code
 #   @return [String] profile code
 # @!attribute [rw] title
-#   @return [String] Descriptive title 
+#   @return [String] Descriptive title
 # @!attribute [rw] careers_enabled
 #   @return [Boolean] true if [Career] section is enabled for {Request}
 # @!attribute [rw] careers_requested
@@ -40,16 +40,21 @@
 #  @return [Object] ActionText instance
 #
 # @!method active?()
-#   @return [Boolean] related {Area#active?}
+#   @return [Boolean] delegated from {Area#active?}
+# @!method ended?()
+#   @return [Boolean] delegated from {Area#ended?}
 class Profile < ApplicationRecord
   belongs_to :area, counter_cache: true
-  has_many :sections
+  has_many :sections, dependent: :destroy
   has_many :questions, through: :sections
+  has_many :requests, dependent: :destroy
   has_rich_text :body
-  
+
+  accepts_nested_attributes_for :sections
+
   validates :area, presence: true
   validates :title, presence: true
-  validates :careers_requested, presence: true, numericality: {only_integer: true}
+  validates :careers_requested, presence: true, numericality: { only_integer: true }
 
-  delegate :active, to: :area, allow_nil: true
+  delegate :active?, :ended?, to: :area, allow_nil: true
 end
