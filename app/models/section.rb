@@ -28,5 +28,5 @@ class Section < ApplicationRecord
 
   validates :title, presence: true
 
-  default_scope { order('weight desc') }
+  scope :by_weight, -> { order('weight desc') }
 end
