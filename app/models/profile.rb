@@ -43,6 +43,8 @@
 #   @return [Boolean] delegated from {Area#active?}
 # @!method ended?()
 #   @return [Boolean] delegated from {Area#ended?}
+# @!method contest()
+#   @return [Object] delegated from {Area}, call refered {Contest}
 class Profile < ApplicationRecord
   belongs_to :area, counter_cache: true
   has_many :sections, dependent: :destroy
@@ -56,5 +58,5 @@ class Profile < ApplicationRecord
   validates :title, presence: true
   validates :careers_requested, presence: true, numericality: { only_integer: true }
 
-  delegate :active?, :ended?, to: :area, allow_nil: true
+  delegate :active?, :ended?, :contest, to: :area, allow_nil: true
 end
