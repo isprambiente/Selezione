@@ -72,11 +72,11 @@ class ContestTest < ActiveSupport::TestCase
   end
 
   # scope
-  test 'default scope' do
+  test 'scope by_start' do
     c1 = create :contest_ended
     c2 = create :contest_future
-    assert_equal c2, Contest.all.first
-    assert_equal c1, Contest.all.last
+    assert_equal c2, Contest.by_start.first
+    assert_equal c1, Contest.by_start.last
   end
 
   test 'scope future' do
@@ -113,8 +113,6 @@ class ContestTest < ActiveSupport::TestCase
     c2 = create :contest_future
     c3 = create :contest
     assert_equal 2, Contest.published.count
-    assert_equal c3, Contest.published.first
-    assert_equal c1, Contest.published.last
     assert_not Contest.published.pluck(:id).include?(c2.id)
   end
 

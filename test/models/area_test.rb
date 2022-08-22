@@ -56,11 +56,11 @@ class AreaTest < ActiveSupport::TestCase
   end
 
   # scope
-  test 'default scope' do
+  test 'scope by_title' do
     b = create :area, title: 'b'
     a = create :area, title: 'a'
-    assert_equal 2, Area.all.count
-    assert_equal a, Area.all.first
-    assert_equal b, Area.all.last
+    assert_equal 2, Area.by_title.count
+    assert_equal a, Area.by_title.first
+    assert_equal b, Area.by_title.last
   end
 end

@@ -57,11 +57,11 @@ class QuestionTest < ActiveSupport::TestCase
   end
 
   # Scope
-  test 'default scope is weight desc' do
+  test 'scope by_weight' do
     create :question, weight: 0
     create :question, weight: 10
-    assert_equal Question.first.weight, 10
-    assert_equal Question.last.weight, 0
+    assert_equal Question.by_weight.first.weight, 10
+    assert_equal Question.by_weight.last.weight, 0
   end
 
   # Methods
