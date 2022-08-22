@@ -50,7 +50,7 @@ class Question < ApplicationRecord
   # validates :options, presence: true, if: :optionable?
   # validates :options, absence: true, unless: :optionable?
 
-  default_scope { order('weight desc') }
+  scope :by_weight, -> { order('weight desc') }
   scope :mandatory, -> { where mandatory: true }
 
   # test if {category} require a single {Answer#value} from {Option}
