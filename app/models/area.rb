@@ -36,6 +36,8 @@
 #   @return [Boolean] delegated from {Contest#active?}
 # @!method ended?()
 #   @return [Boolean] delegated from {Contest#ended?}
+# @!method self.by_title()
+#   @returm [Array] list of areas ordered by title
 class Area < ApplicationRecord
   belongs_to :contest, counter_cache: true
   has_many :profiles, dependent: :destroy
@@ -49,5 +51,5 @@ class Area < ApplicationRecord
 
   delegate :active?, :ended?, to: :contest, allow_nil: true
 
-  default_scope { order('title asc') }
+  scope :by_title, ->  { order('title asc') } 
 end
