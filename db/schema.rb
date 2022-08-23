@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_10_081625) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_23_105314) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "qualification_categories", ["dsg", "lvo", "lb", "lm", "phd", "training"]
   create_enum "question_categories", ["string", "text", "select", "multiselect", "radio", "checkbox", "file"]
   create_enum "request_statuses", ["editing", "sended", "aborted", "rejected", "accepted", "valutated"]
 
@@ -124,6 +125,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_081625) do
     t.index ["title"], name: "index_profiles_on_title"
   end
 
+  create_table "qualifications", force: :cascade do |t|
+    t.bigint "request_id", null: false
+    t.enum "category", default: "dsg", enum_type: "qualification_categories"
+    t.string "title", default: "", null: false
+    t.string "vote", default: "", null: false
+    t.string "vote_type", default: "", null: false
+    t.integer "year", limit: 2
+    t.string "istitute", default: "", null: false
+    t.string "duration", default: "", null: false
+    t.string "duration_type", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_qualifications_on_category"
+    t.index ["request_id"], name: "index_qualifications_on_request_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.bigint "section_id", null: false
     t.text "title", default: "", null: false
@@ -191,6 +208,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_10_081625) do
   add_foreign_key "areas", "contests"
   add_foreign_key "options", "questions"
   add_foreign_key "profiles", "areas"
+  add_foreign_key "qualifications", "requests"
   add_foreign_key "questions", "sections"
   add_foreign_key "requests", "profiles"
   add_foreign_key "requests", "users"
