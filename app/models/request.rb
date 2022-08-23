@@ -4,9 +4,10 @@
 # to a {Contest}'s {Profile}.
 #
 # === Relations
-# belongs to {Profile}
-# belongs to {User}
-# has many {Answer}
+# * belongs to {Profile}
+# * belongs to {User}
+# * has many {Answer}
+# * has_many {Qualification}
 #
 # === Validates
 # * presence of {Profile}
@@ -38,8 +39,9 @@ class Request < ApplicationRecord
   belongs_to :user
   belongs_to :profile
   has_many   :answers, dependent: :destroy
+  has_many   :qualifications, dependent: :destroy
 
-  delegate :active?, :ended?, :area, :contest, to: :profile, allow_nil: true
+  delegate :active?, :ended?, :area, :contest, :qualifications_requested, :qualifications_requested?, to: :profile, allow_nil: true
   enum status: STATUSES, _prefix: true
 
   validates :user, presence: true
@@ -47,6 +49,7 @@ class Request < ApplicationRecord
   validates :status,  presence: true
   validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
   validates :status, inclusion: { in: STATUSES_ENDED.values }, if: :ended?
+  validates :qualification_required?, presence: true, if: :qualifications_requested?
   with_options if: :status_sended? do |e|
     e.validates :missing_answers?, absence: true
     e.validates :profile_conflicts?, absence: true
@@ -81,5 +84,11 @@ class Request < ApplicationRecord
   # @return [Boolean] true if there are conflicts
   def area_conflicts?
     contest.areas_max_choice <= other_user_contest_requests.pluck('profiles.area_id').uniq.count
+  end
+
+  # Test if required qualification are present
+  # @return [Boolean] true if exists
+  def qualification_required?
+    qualifications.exists?(category: qualifications_requested)
   end
 end

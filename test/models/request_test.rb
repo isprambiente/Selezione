@@ -26,6 +26,12 @@ class RequestTest < ActiveSupport::TestCase
     assert_equal 'Answer', request.answers.new.class.name
   end
 
+  test 'has many qualifications' do
+    request = create :request
+    assert_equal 'ActiveRecord::Associations::CollectionProxy', request.qualifications.class.name
+    assert_equal 'Qualification', request.qualifications.new.class.name
+  end
+
   # Validations
   test 'presence of profile' do
     request = build :request, profile: nil
@@ -153,5 +159,18 @@ class RequestTest < ActiveSupport::TestCase
     assert r2.valid?
     assert r2.save
     assert_not r1.update status: :sended
+  end
+
+  test 'qualification_required must be true if status sended' do
+    r = create :request
+    r.status = :sended
+    assert r.valid?
+    r.profile.update qualifications_requested: ['dsg', 'lb']
+    assert_not r.valid?
+    q = create :qualification, request: r, category: 'lvo'
+    assert_not r.valid?
+    q.update category: 'dsg'
+    assert r.valid?
+    assert r.save
   end
 end
