@@ -108,7 +108,7 @@ class RequestTest < ActiveSupport::TestCase
     assert request.valid?
   end
 
-  test 'answer_required must be an empty list if status_sended?' do
+  test 'answer_required? must be an empty list if status_sended?' do
     request = create :request
     section = create :section, profile: request.profile
     question1 = create :question, section: section, mandatory: true
@@ -121,5 +121,37 @@ class RequestTest < ActiveSupport::TestCase
     assert request.valid?
     request.answers.where(question: question1).each(&:destroy)
     assert_not request.valid?
+  end
+
+  test 'other_user_area_requests get a list of the user requests in same area' do
+     r1 = create :request, status: :sended
+     r1.contest.update areas_max_choice: 2
+     r1.area.update profiles_max_choice: 2
+     r2 = create :request, profile: create(:profile, area: r1.area), user: r1.user, status: :sended
+     r3 = create :request, profile: create(:profile, area: create(:area, contest: r1.contest)), user: r1.user, status: :sended
+     assert r1.other_user_area_requests.exists?(id: r2.id)
+     assert_not r1.other_user_area_requests.exists?(id: r3.id)
+  end
+
+  test 'profile_conflicts? must be false if status_sended?' do
+    r1 = create :request, status: :sended
+    assert_equal 1, r1.area.profiles_max_choice
+    r2 = build :request, profile: create(:profile, area: r1.area), user: r1.user, status: :sended
+    assert_not r2.valid?
+    r1.update status: :editing
+    assert r2.valid?
+    assert r2.save
+    assert_not r1.update status: :sended
+  end
+
+  test 'area_conflicts? must_be_false if status_sended?' do
+    r1 = create :request, status: :sended
+    assert_equal 1, r1.contest.areas_max_choice
+    r2 = build :request, profile: create(:profile, area: create(:area, contest: r1.contest)), user: r1.user, status: :sended
+    assert_not r2.valid?
+    r1.update status: :editing
+    assert r2.valid?
+    assert r2.save
+    assert_not r1.update status: :sended
   end
 end

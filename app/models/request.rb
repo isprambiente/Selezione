@@ -27,6 +27,10 @@
 #   @return [Boolean] delegated from {Profile#active?}
 # @!method ended?()
 #   @return [Boolean] delegated from {Profile#ended?}
+# @!method area()
+#   @return [Object] delegated from {Profile}, call refered {Area}
+# @!method contest()
+#   @return [Object] delegated from {Profile#contest}
 class Request < ApplicationRecord
   STATUSES_ACTIVE = { editing: 'editing', sended: 'sended' }.freeze
   STATUSES_ENDED = { rejected: 'rejected', accepted: 'accepted', valutated: 'valutated' }.freeze
@@ -35,7 +39,7 @@ class Request < ApplicationRecord
   belongs_to :profile
   has_many   :answers, dependent: :destroy
 
-  delegate :active?, :ended?, to: :profile, allow_nil: true
+  delegate :active?, :ended?, :area, :contest, to: :profile, allow_nil: true
   enum status: STATUSES, _prefix: true
 
   validates :user, presence: true
@@ -43,21 +47,39 @@ class Request < ApplicationRecord
   validates :status,  presence: true
   validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
   validates :status, inclusion: { in: STATUSES_ENDED.values }, if: :ended?
-  validates :missing_answers, absence: true, if: :status_sended?
+  with_options if: :status_sended? do |e|
+    e.validates :missing_answers?, absence: true
+    e.validates :profile_conflicts?, absence: true
+    e.validates :area_conflicts?, absence: true
+  end
 
   # Test if each required question has an answer
   # @return [Array] list of mandatory [Question] that have not an [Answer]
   def missing_answers?
-    profile.questions.unscoped.mandatory.pluck(:id) - answers.pluck(:question_id)
+    profile.questions.mandatory.pluck(:id) - answers.pluck(:question_id)
+  end
+
+  # Search other {Requests} from same {Area} and with same user
+  # @return [Array] list of {Request}
+  def other_user_area_requests
+    area.requests.where(user: user).where.not(id: id).where.not(status: :editing)
   end
 
   # Test if there are conflicts with other requests on same profile
   # @return [Boolean] true if there are conflicts
   def profile_conflicts?
-    profile.area.profiles_max_choice > Request.where(user: user, profile: profile.area.profiles)
+    area.profiles_max_choice <= other_user_area_requests.count
+  end
+
+  # Search other {Requests} from same {Contest} and with same user
+  # @return [Array] list of {Request}
+  def other_user_contest_requests
+    contest.requests.where(user: user).where.not(areas: {id: profile.area_id}).where.not(status: :editing)
   end
 
   # Test if there are conflicts with requests on same contest
+  # @return [Boolean] true if there are conflicts
   def area_conflicts?
+    contest.areas_max_choice <= other_user_contest_requests.pluck('profiles.area_id').uniq.count
   end
 end
