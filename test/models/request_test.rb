@@ -124,13 +124,13 @@ class RequestTest < ActiveSupport::TestCase
   end
 
   test 'other_user_area_requests get a list of the user requests in same area' do
-     r1 = create :request, status: :sended
-     r1.contest.update areas_max_choice: 2
-     r1.area.update profiles_max_choice: 2
-     r2 = create :request, profile: create(:profile, area: r1.area), user: r1.user, status: :sended
-     r3 = create :request, profile: create(:profile, area: create(:area, contest: r1.contest)), user: r1.user, status: :sended
-     assert r1.other_user_area_requests.exists?(id: r2.id)
-     assert_not r1.other_user_area_requests.exists?(id: r3.id)
+    r1 = create :request, status: :sended
+    r1.contest.update areas_max_choice: 2
+    r1.area.update profiles_max_choice: 2
+    r2 = create :request, profile: create(:profile, area: r1.area), user: r1.user, status: :sended
+    r3 = create :request, profile: create(:profile, area: create(:area, contest: r1.contest)), user: r1.user, status: :sended
+    assert r1.other_user_area_requests.exists?(id: r2.id)
+    assert_not r1.other_user_area_requests.exists?(id: r3.id)
   end
 
   test 'profile_conflicts? must be false if status_sended?' do

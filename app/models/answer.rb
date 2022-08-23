@@ -33,7 +33,7 @@ class Answer < ApplicationRecord
 
   # validates :request, presence: true
   # validates :question, presence: true
-  validates :question, uniqueness: {scope: :request}
+  validates :question, uniqueness: { scope: :request }
   validates :question_request_valid?, presence: true
   with_options if: :category_file? do |e|
     e.validates :file, presence: true
@@ -45,7 +45,6 @@ class Answer < ApplicationRecord
     e.validates :value_in_option?, presence: true, if: :selectable?
     e.validates :values_in_option?, presence: true, if: :multiselectable?
   end
-
 
   # Make array from {value}
   # @return [Array] split value with "|" char as separator
@@ -67,7 +66,7 @@ class Answer < ApplicationRecord
   end
 
   # Test if all value from {multivalue} are {Option#acceptable}
-  # @return [Boolean] true if all values are valid 
+  # @return [Boolean] true if all values are valid
   def values_in_option?
     options.where(title: multivalue, acceptable: true).count == multivalue.length
   end

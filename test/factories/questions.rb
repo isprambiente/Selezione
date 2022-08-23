@@ -11,7 +11,7 @@ FactoryBot.define do
       category { :file }
     end
     factory :question_options do
-      options_attributes { [{title: 'ok', acceptable: true},{title: 'yes', acceptable: true},{title: 'no', acceptable: false}]}
+      options_attributes { [{ title: 'ok', acceptable: true }, { title: 'yes', acceptable: true }, { title: 'no', acceptable: false }] }
       factory :question_select do
         category { :select }
       end

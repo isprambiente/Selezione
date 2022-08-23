@@ -56,13 +56,13 @@ class Question < ApplicationRecord
   # test if {category} require a single {Answer#value} from {Option}
   # @return [Boolean] true if category if 'select' or 'radio'
   def selectable?
-    ['select', 'radio'].include?(category)
+    %w[select radio].include?(category)
   end
 
   # test if {category} accepr multiple {Answer#value} from {Option}
   # @return [Boolean] true if category if 'multiselect' or 'checkbox'
   def multiselectable?
-    ['multiselect','checkbox'].include?(category)
+    %w[multiselect checkbox].include?(category)
   end
 
   # test if {category} require options

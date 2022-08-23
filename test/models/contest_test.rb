@@ -109,11 +109,11 @@ class ContestTest < ActiveSupport::TestCase
     assert_not Contest.ended.pluck(:id).include?(c3.id)
   end
   test 'scope published`' do
-    c1 = create :contest_ended
-    c2 = create :contest_future
-    c3 = create :contest
+    create :contest_ended
+    create :contest
+    future = create :contest_future
     assert_equal 2, Contest.published.count
-    assert_not Contest.published.pluck(:id).include?(c2.id)
+    assert_not Contest.published.pluck(:id).include?(future.id)
   end
 
   # method

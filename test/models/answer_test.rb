@@ -107,7 +107,7 @@ class AnswerTest < ActiveSupport::TestCase
   test 'value in acceptable options if selectable?' do
     answer = build :answer_select, value: 'other'
     assert_not answer.valid?
-    answer.value = answer.options.where(acceptable: false).first.title 
+    answer.value = answer.options.where(acceptable: false).first.title
     assert_not answer.valid?
     answer.value = answer.options.acceptable.first.title
     assert answer.valid?

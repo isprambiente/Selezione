@@ -74,7 +74,7 @@ class Request < ApplicationRecord
   # Search other {Requests} from same {Contest} and with same user
   # @return [Array] list of {Request}
   def other_user_contest_requests
-    contest.requests.where(user: user).where.not(areas: {id: profile.area_id}).where.not(status: :editing)
+    contest.requests.where(user: user).where.not(areas: { id: profile.area_id }).where.not(status: :editing)
   end
 
   # Test if there are conflicts with requests on same contest

@@ -51,5 +51,5 @@ class Area < ApplicationRecord
 
   delegate :active?, :ended?, to: :contest, allow_nil: true
 
-  scope :by_title, ->  { order('title asc') } 
+  scope :by_title, -> { order('title asc') }
 end

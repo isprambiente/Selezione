@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :answer do
-    question { create :question } 
+    question { create :question }
     request { question.present? ? create(:request, profile: question.section.profile) : nil }
     value { 'MyText' }
     factory :answer_file do
@@ -16,7 +16,7 @@ FactoryBot.define do
     end
     factory :answer_multiselect do
       question { create :question_multiselect }
-      multivalue { ['ok','yes'] }
+      multivalue { %w[ok yes] }
     end
   end
 end

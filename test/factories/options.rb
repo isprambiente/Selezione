@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :option do
-    question { create :question, category: 'select'}
+    question { create :question, category: 'select' }
     weight { 0 }
     title { 'MyString' }
     acceptable { true }
