@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_23_105314) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_24_024617) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   # Custom types defined in this database.
   # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "career_categories", ["ti", "td", "cc", "co", "ar", "stage", "other"]
   create_enum "qualification_categories", ["dsg", "lvo", "lb", "lm", "phd", "training"]
   create_enum "question_categories", ["string", "text", "select", "multiselect", "radio", "checkbox", "file"]
   create_enum "request_statuses", ["editing", "sended", "aborted", "rejected", "accepted", "valutated"]
@@ -79,6 +80,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_105314) do
     t.index ["code"], name: "index_areas_on_code"
     t.index ["contest_id"], name: "index_areas_on_contest_id"
     t.index ["title"], name: "index_areas_on_title"
+  end
+
+  create_table "careers", force: :cascade do |t|
+    t.bigint "request_id", null: false
+    t.string "employer"
+    t.enum "category", default: "ti", enum_type: "career_categories"
+    t.text "description", default: "", null: false
+    t.date "start_on", null: false
+    t.date "stop_on", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category"], name: "index_careers_on_category"
+    t.index ["request_id"], name: "index_careers_on_request_id"
+    t.index ["start_on"], name: "index_careers_on_start_on"
   end
 
   create_table "contests", force: :cascade do |t|
@@ -206,6 +221,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_23_105314) do
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "requests"
   add_foreign_key "areas", "contests"
+  add_foreign_key "careers", "requests"
   add_foreign_key "options", "questions"
   add_foreign_key "profiles", "areas"
   add_foreign_key "qualifications", "requests"
