@@ -49,7 +49,7 @@ class Area < ApplicationRecord
   validates :title, presence: true
   validates :profiles_max_choice, presence: true, numericality: { only_integer: true }
 
-  delegate :active?, :ended?, to: :contest, allow_nil: true
+  delegate :active?, :ended?, :stop_at, to: :contest, allow_nil: true
 
   scope :by_title, -> { order('title asc') }
 end

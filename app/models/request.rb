@@ -42,7 +42,7 @@ class Request < ApplicationRecord
   has_many   :qualifications, dependent: :destroy
   has_many   :careers, dependent: :destroy
 
-  delegate :active?, :ended?, :area, :contest, :qualifications_requested, :qualifications_requested?, to: :profile, allow_nil: true
+  delegate :active?, :ended?, :area, :contest, :qualifications_requested, :qualifications_requested?, :stop_at, to: :profile, allow_nil: true
   enum status: STATUSES, _prefix: true
 
   validates :user, presence: true

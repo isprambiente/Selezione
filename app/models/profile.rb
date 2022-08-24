@@ -58,5 +58,5 @@ class Profile < ApplicationRecord
   validates :title, presence: true
   validates :careers_requested, presence: true, numericality: { only_integer: true }
 
-  delegate :active?, :ended?, :contest, to: :area, allow_nil: true
+  delegate :active?, :ended?, :contest, :stop_at, to: :area, allow_nil: true
 end
