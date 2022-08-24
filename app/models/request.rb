@@ -40,6 +40,7 @@ class Request < ApplicationRecord
   belongs_to :profile
   has_many   :answers, dependent: :destroy
   has_many   :qualifications, dependent: :destroy
+  has_many   :careers, dependent: :destroy
 
   delegate :active?, :ended?, :area, :contest, :qualifications_requested, :qualifications_requested?, to: :profile, allow_nil: true
   enum status: STATUSES, _prefix: true
@@ -49,11 +50,12 @@ class Request < ApplicationRecord
   validates :status,  presence: true
   validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
   validates :status, inclusion: { in: STATUSES_ENDED.values }, if: :ended?
-  validates :qualification_required?, presence: true, if: :qualifications_requested?
   with_options if: :status_sended? do |e|
     e.validates :missing_answers?, absence: true
     e.validates :profile_conflicts?, absence: true
     e.validates :area_conflicts?, absence: true
+    e.validates :qualification_required?, presence: true, if: :qualifications_requested?
+    e.validates :careers_required?, presence: true
   end
 
   # Test if each required question has an answer
@@ -86,9 +88,15 @@ class Request < ApplicationRecord
     contest.areas_max_choice <= other_user_contest_requests.pluck('profiles.area_id').uniq.count
   end
 
-  # Test if required qualification are present
+  # Test if required qualification is present
   # @return [Boolean] true if exists
   def qualification_required?
     qualifications.exists?(category: qualifications_requested)
+  end
+
+  # test if required career is present
+  # @return [Boolean] true if is present
+  def careers_required?
+    careers.total_countable_months >= profile.careers_requested
   end
 end
