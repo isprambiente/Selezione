@@ -34,7 +34,7 @@ class Career < ApplicationRecord
   CATEGORIES = {ti: 'ti', td: 'td', cc: 'cc', co: 'co', ar: 'ar', stage: 'stage', other: 'other'}
   belongs_to :request
   
-  delegate :active, to: :request, allow_nil: true
+  delegate :active, :stop_at, to: :request, allow_nil: true
   enum category: CATEGORIES, _prefix: true
 
   validates :request, presence: true
@@ -42,16 +42,11 @@ class Career < ApplicationRecord
   validates :category, presence: true, inclusion: {in: CATEGORIES.values}
   validates :description, presence: true
   validates :start_on, presence: true, comparison: {less_than: :stop_on}
-  validates :stop_on, presence: true, comparison: {less_than_or_equal_to: :contest_stop_at}
+  validates :stop_on, presence: true, comparison: {less_than_or_equal_to: :stop_at}
+  validates :length, comparison: {greater_than: 14}
 
   scope :start_on, -> { order 'start_on asc'}
   scope :countable, -> { where category: ['ti','td','cc','co','ar'] }
-
-  # get end date from {Contest}
-  # @return [DateTime] {Contest.stop_at}
-  def contest_stop_at
-    request.profile.area.contest.stop_at
-  end
 
   # Count overlapped careers in monts
   # @return [Integer] months of career
@@ -70,5 +65,15 @@ class Career < ApplicationRecord
       end
     end
     total += tmp_stop.-(tmp_start)./(30)
+  end
+
+  # length of work period in days
+  # @return [Integer]
+  def length
+    if stop_on? && start_on
+      stop_on.-(start_on).to_i
+    else
+      0
+    end
   end
 end
