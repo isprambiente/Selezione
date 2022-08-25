@@ -173,4 +173,18 @@ class RequestTest < ActiveSupport::TestCase
     assert r.valid?
     assert r.save
   end
+  
+  test 'careers.total_countable_months must be equal or greater than profile.careers_requested' do
+    request = create :request, profile: create(:profile, careers_requested: 7)
+    c1 = create :career, request: request
+    assert_equal 6, request.careers.total_countable_months.round
+    request.status = :sended
+    assert_not request.valid?
+    request.status = :editing
+    c2 = create :career, request: request, start_on: c1.stop_on + 1.days, stop_on: c1.stop_on + 30.days
+    assert_equal 7, request.careers.total_countable_months.round
+    request.status = :sended
+    assert request.valid?
+    assert request.save
+  end
 end
