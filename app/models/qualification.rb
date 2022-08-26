@@ -38,26 +38,27 @@
 # @!attribute [rw] duration_type
 #   @return [String] unit of measurement for duration of training
 class Qualification < ApplicationRecord
-  CATEGORIES = {dsg: 'dsg', lvo: 'lvo', lb: 'lb', lm: 'lm', phd: 'phd', training: 'training'}
-  VOTE_TYPE = ['10','30','60','100','110','altro']
-  DURATION_TYPE = ['ore','giorni','mesi','anni','altro']
+  CATEGORIES = { dsg: 'dsg', lvo: 'lvo', lb: 'lb', lm: 'lm', phd: 'phd', training: 'training' }
+  VOTE_TYPE = %w[10 30 60 100 110 altro]
+  DURATION_TYPE = %w[ore giorni mesi anni altro]
+  include Readonlyalbe
   belongs_to :request
   has_one_attached :file
 
-  delegate :active, to: :request, allow_nil: true
   enum category: CATEGORIES, _prefix: true
 
   validates :request, presence: true
+  validates :category, presence: true, inclusion: { in: CATEGORIES.values }
   validates :title, presence: true
   validates :year, presence: true
   validates :istitute, presence: true
   with_options if: :votable? do |e|
     e.validates :vote, presence: true
-    e.validates :vote_type, presence: true, inclusion: {in: VOTE_TYPE}
+    e.validates :vote_type, presence: true, inclusion: { in: VOTE_TYPE }
   end
   with_options if: :category_training? do |e|
     e.validates :duration, presence: true
-    e.validates :duration_type, presence: true, inclusion: {in: DURATION_TYPE}
+    e.validates :duration_type, presence: true, inclusion: { in: DURATION_TYPE }
   end
 
   before_validation :clear_superfluous_data!
@@ -65,17 +66,16 @@ class Qualification < ApplicationRecord
   # test if {category} require a {vote}
   # @return [Boolean] true if {vote} is required
   def votable?
-    ['dsg','lvo','lb','lm'].include? category
+    %w[dsg lvo lb lm].include? category
   end
 
   # clear unused data for category
-  # @return [True]
+  # @return [Nil]
   def clear_superfluous_data!
     if votable?
       assign_attributes duration: '', duration_type: ''
     else
       assign_attributes vote: '', vote_type: ''
     end
-    true
   end
 end

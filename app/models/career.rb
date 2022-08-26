@@ -31,22 +31,22 @@
 # @!attribute [rw] stop_on
 #   @return [Date] end of work experience
 class Career < ApplicationRecord
-  CATEGORIES = {ti: 'ti', td: 'td', cc: 'cc', co: 'co', ar: 'ar', stage: 'stage', other: 'other'}
+  CATEGORIES = { ti: 'ti', td: 'td', cc: 'cc', co: 'co', ar: 'ar', stage: 'stage', other: 'other' }
+  include Readonlyalbe
   belongs_to :request
-  
-  delegate :active, :stop_at, to: :request, allow_nil: true
+
   enum category: CATEGORIES, _prefix: true
 
   validates :request, presence: true
   validates :employer, presence: true
-  validates :category, presence: true, inclusion: {in: CATEGORIES.values}
+  validates :category, presence: true, inclusion: { in: CATEGORIES.values }
   validates :description, presence: true
-  validates :start_on, presence: true, comparison: {less_than: :stop_on}
-  validates :stop_on, presence: true, comparison: {less_than_or_equal_to: :stop_at}
-  validates :length, comparison: {greater_than: 14}
+  validates :start_on, presence: true, comparison: { less_than: :stop_on }
+  validates :stop_on, presence: true, comparison: { less_than_or_equal_to: :stop_at }
+  validates :length, comparison: { greater_than: 14 }
 
-  scope :start_on, -> { order 'start_on asc'}
-  scope :countable, -> { where category: ['ti','td','cc','co','ar'] }
+  scope :start_on, -> { order 'start_on asc' }
+  scope :countable, -> { where category: %w[ti td cc co ar] }
 
   # Count overlapped careers in monts
   # @return [Integer] months of career

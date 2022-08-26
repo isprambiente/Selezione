@@ -25,6 +25,7 @@
 # @!method options()
 #   @return [Array] delegated from {Question}
 class Answer < ApplicationRecord
+  include Readonlyalbe
   belongs_to :request
   belongs_to :question
   has_one_attached :file
