@@ -31,7 +31,7 @@
 # @!attribute [rw] stop_on
 #   @return [Date] end of work experience
 class Career < ApplicationRecord
-  CATEGORIES = { ti: 'ti', td: 'td', cc: 'cc', co: 'co', ar: 'ar', stage: 'stage', other: 'other' }
+  CATEGORIES = { ti: 'ti', td: 'td', cc: 'cc', co: 'co', ar: 'ar', stage: 'stage', other: 'other' }.freeze
   include Readonlyalbe
   belongs_to :request
 

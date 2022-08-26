@@ -38,9 +38,9 @@
 # @!attribute [rw] duration_type
 #   @return [String] unit of measurement for duration of training
 class Qualification < ApplicationRecord
-  CATEGORIES = { dsg: 'dsg', lvo: 'lvo', lb: 'lb', lm: 'lm', phd: 'phd', training: 'training' }
-  VOTE_TYPE = %w[10 30 60 100 110 altro]
-  DURATION_TYPE = %w[ore giorni mesi anni altro]
+  CATEGORIES = { dsg: 'dsg', lvo: 'lvo', lb: 'lb', lm: 'lm', phd: 'phd', training: 'training' }.freeze
+  VOTE_TYPE = %w[10 30 60 100 110 altro].freeze
+  DURATION_TYPE = %w[ore giorni mesi anni altro].freeze
   include Readonlyalbe
   belongs_to :request
   has_one_attached :file

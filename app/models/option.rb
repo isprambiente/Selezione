@@ -33,6 +33,6 @@ class Option < ApplicationRecord
   validates :weight, presence: true
   validates :acceptable, inclusion: [true, false]
 
-  default_scope {by_weight }
+  default_scope { by_weight }
   scope :acceptable, -> { where acceptable: true }
 end

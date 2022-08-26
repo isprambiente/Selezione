@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 class CareerTest < ActiveSupport::TestCase
@@ -88,5 +90,4 @@ class CareerTest < ActiveSupport::TestCase
     assert_raise(Exception) { assert_not career.update(value: 'employer') }
     assert career.readonly?
   end
-
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/concerns/weightable.rb
 module Weightable
   extend ActiveSupport::Concern
