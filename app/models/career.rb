@@ -56,15 +56,23 @@ class Career < ApplicationRecord
     tmp_start = Date.new
     tmp_stop = Date.new
     list.each do |c|
-      if c.start_on <= tmp_stop
-        tmp_stop = c.stop_on if c.stop_on > tmp_stop
-      else
-        total += tmp_stop.-(tmp_start)./(30)
-        tmp_start = c.start_on
-        tmp_stop  = c.stop_on
-      end
+      total, tmp_start, tmp_stop = mount_sum(total, tmp_start, tmp_stop, c)
     end
-    total += tmp_stop.-(tmp_start)./(30)
+    total + tmp_stop.-(tmp_start)./(30)
+  end
+
+  # sum join or sum mount for {total_countable_months}
+  # @return [Array] mount, new tmp_start, new tmp_stop
+  def self.mount_sum(total, tmp_start, tmp_stop, entry)
+    if entry.start_on <= tmp_stop
+      if entry.stop_on > tmp_stop
+        [total, tmp_start, entry.stop_on]
+      else
+        [total, tmp_start, tmp_stop]
+      end
+    else
+      [total + tmp_stop.-(tmp_start)./(30), entry.start_on, entry.stop_on]
+    end
   end
 
   # length of work period in days
