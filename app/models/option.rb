@@ -25,6 +25,7 @@
 # === Scope
 # default scope is weight desc
 class Option < ApplicationRecord
+  include Weightable
   belongs_to :question
 
   validates :question, presence: true
@@ -32,6 +33,6 @@ class Option < ApplicationRecord
   validates :weight, presence: true
   validates :acceptable, inclusion: [true, false]
 
-  default_scope { order('weight desc') }
+  default_scope {by_weight }
   scope :acceptable, -> { where acceptable: true }
 end

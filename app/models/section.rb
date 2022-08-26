@@ -21,12 +21,11 @@
 # @!attribute [rw] weight
 #   @return [Integer] value for section order
 class Section < ApplicationRecord
+  include Weightable
   belongs_to :profile
   has_many :questions
   has_rich_text :top
   has_rich_text :bottom
 
   validates :title, presence: true
-
-  scope :by_weight, -> { order('weight desc') }
 end

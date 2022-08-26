@@ -34,6 +34,7 @@
 # @!method self.acceptable
 #   @return [Array] list of related options where {acceptable} is true
 class Question < ApplicationRecord
+  include Weightable
   belongs_to :section
   has_many :answers, dependent: :destroy
   has_many :options, dependent: :destroy
@@ -50,7 +51,6 @@ class Question < ApplicationRecord
   # validates :options, presence: true, if: :optionable?
   # validates :options, absence: true, unless: :optionable?
 
-  scope :by_weight, -> { order('weight desc') }
   scope :mandatory, -> { where mandatory: true }
 
   # test if {category} require a single {Answer#value} from {Option}
