@@ -121,11 +121,17 @@ class RequestTest < ActiveSupport::TestCase
     question2 = create :question, section: section, mandatory: false
     request.status = 'sended'
     assert_not request.valid?
+    request.status = 'editing'
     request.answers.create request: request, question: question1, value: 'value'
+    request.status = 'sended'
     assert request.valid?
+    request.status = 'editing'
     request.answers.create request: request, question: question2, value: 'value'
+    request.status = 'sended'
     assert request.valid?
+    request.status = 'editing'
     request.answers.where(question: question1).each(&:destroy)
+    request.status = 'sended'
     assert_not request.valid?
   end
 
@@ -165,15 +171,19 @@ class RequestTest < ActiveSupport::TestCase
     r = create :request
     r.status = :sended
     assert r.valid?
-    r.profile.update qualifications_requested: ['dsg', 'lb']
+    r.profile.update qualifications_requested: %w[dsg lb]
     assert_not r.valid?
+    r.status = :editing
     q = create :qualification, request: r, category: 'lvo'
+    r.status = :sended
     assert_not r.valid?
+    r.status = :editing
     q.update category: 'dsg'
+    r.status = :sended
     assert r.valid?
     assert r.save
   end
-  
+
   test 'careers.total_countable_months must be equal or greater than profile.careers_requested' do
     request = create :request, profile: create(:profile, careers_requested: 7)
     c1 = create :career, request: request

@@ -122,4 +122,12 @@ class AnswerTest < ActiveSupport::TestCase
     assert answer.valid?
     assert answer.save
   end
+  test 'readonly model if contest is sended' do
+    answer = create :answer
+    assert answer.update value: 'ok'
+    answer.request.update status: :sended
+    assert answer.valid?
+    assert_raise(Exception) { assert_not answer.update(value: 'bad') }
+    assert answer.readonly?
+  end
 end

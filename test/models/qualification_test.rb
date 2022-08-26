@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class QualificationTest < ActiveSupport::TestCase
   test 'valid from factory' do
@@ -14,7 +14,7 @@ class QualificationTest < ActiveSupport::TestCase
   end
 
   # Validations
-  test 'presence of request'  do
+  test 'presence of request' do
     qualification = build :qualification, request: nil
     assert_not qualification.valid?
     qualification.request = create :request
@@ -29,7 +29,7 @@ class QualificationTest < ActiveSupport::TestCase
     assert qualification.valid?
     assert qualification.save
   end
-  
+
   test 'presence of year' do
     qualification = build :qualification, year: nil
     assert_not qualification.valid?
@@ -47,7 +47,7 @@ class QualificationTest < ActiveSupport::TestCase
     assert qualification.valid?
     assert qualification.save
   end
-  
+
   test 'presence of vote if votable?' do
     qualification = build :qualification, vote: '', category: :dsg
     assert qualification.votable?
@@ -74,7 +74,7 @@ class QualificationTest < ActiveSupport::TestCase
     assert qualification.valid?
     assert qualification.save
   end
-  
+
   test 'presence of duration if category_training?' do
     qualification = build :qualification, duration: '', category: :training
     assert qualification.category_training?
@@ -126,5 +126,13 @@ class QualificationTest < ActiveSupport::TestCase
     q.save
     assert_not q.vote.present?
     assert_not q.vote_type.present?
+  end
+  test 'readonly model if contest is sended' do
+    qualification = create :qualification
+    assert qualification.update title: 'ok'
+    qualification.request.update status: :sended
+    assert qualification.valid?
+    assert_raise(Exception) { assert_not qualification.update(title: 'employer') }
+    assert qualification.readonly?
   end
 end

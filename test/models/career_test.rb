@@ -1,4 +1,4 @@
-require "test_helper"
+require 'test_helper'
 
 class CareerTest < ActiveSupport::TestCase
   test 'valid from factory' do
@@ -80,4 +80,13 @@ class CareerTest < ActiveSupport::TestCase
     assert career.valid?
     assert career.save
   end
+  test 'readonly model if contest is sended' do
+    career = create :career
+    assert career.update employer: 'ok'
+    career.request.update status: :sended
+    assert career.valid?
+    assert_raise(Exception) { assert_not career.update(value: 'employer') }
+    assert career.readonly?
+  end
+
 end
