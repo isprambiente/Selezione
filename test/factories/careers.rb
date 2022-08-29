@@ -6,7 +6,7 @@ FactoryBot.define do
     employer { 'MyEmployer' }
     category { 'td' }
     description { 'MyDescription' }
-    start_on { Date.today - 1.year }
-    stop_on { Date.today - 6.month }
+    start_on { Time.zone.today - 1.year }
+    stop_on { Time.zone.today - 6.months }
   end
 end

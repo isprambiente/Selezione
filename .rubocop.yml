@@ -1,10 +1,12 @@
 # Configurazioni
+require: rubocop-rails
 AllCops:
   TargetRubyVersion: 2.7
   Exclude:
     - 'bin/*'
     - 'node_modules/**/*'
     - 'db/**/*'
+    - 'test/*'
 
 Layout/EmptyLinesAroundAttributeAccessor:
   Enabled: true

@@ -75,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_085454) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["request_id", "question_id"], name: "index_answers_on_request_id_and_question_id", unique: true
     t.index ["request_id"], name: "index_answers_on_request_id"
   end
 

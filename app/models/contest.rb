@@ -92,12 +92,12 @@ class Contest < ApplicationRecord
 
   # @return [Boolean] true if {#Contest} is started and not ended
   def active?
-    start_at <= Time.now && stop_at >= Time.now
+    start_at <= Time.zone.now && stop_at >= Time.zone.now
   end
 
   # @return [Boolean] true if {#Contest} is ended
   def ended?
-    stop_at <= Time.now
+    stop_at <= Time.zone.now
   end
 
   private

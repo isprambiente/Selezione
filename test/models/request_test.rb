@@ -67,7 +67,7 @@ class RequestTest < ActiveSupport::TestCase
     request = create :request
     assert_equal request.active?, true
     assert request.valid?
-    request.profile.area.contest.update start_at: Time.now - 1.days, stop_at: Time.now - 2.days
+    request.profile.area.contest.update start_at: Time.zone.now - 1.day, stop_at: Time.zone.now - 2.days
     assert_equal request.active?, false
     assert_not request.valid?
   end
@@ -76,7 +76,7 @@ class RequestTest < ActiveSupport::TestCase
     request = create :request, status: 'sended'
     assert_equal request.active?, true
     assert request.valid?
-    request.profile.area.contest.update start_at: Time.now - 1.days, stop_at: Time.now - 2.days
+    request.profile.area.contest.update start_at: Time.zone.now - 1.day, stop_at: Time.zone.now - 2.days
     assert_equal request.active?, false
     assert_not request.valid?
   end
@@ -85,7 +85,7 @@ class RequestTest < ActiveSupport::TestCase
     request = create :request, status: 'sended'
     assert request.active?
     assert request.valid?
-    request.profile.area.contest.update start_at: Time.now - 1.days, stop_at: Time.now - 2.days
+    request.profile.area.contest.update start_at: Time.zone.now - 1.day, stop_at: Time.zone.now - 2.days
     assert_not request.active?
     assert_not request.valid?
   end
@@ -95,7 +95,7 @@ class RequestTest < ActiveSupport::TestCase
     request.status = 'rejected'
     assert_not request.ended?
     assert_not request.valid?
-    request.profile.area.contest.update start_at: Time.now - 1.days, stop_at: Time.now - 2.days
+    request.profile.area.contest.update start_at: Time.zone.now - 1.day, stop_at: Time.zone.now - 2.days
     assert request.ended?
     assert request.valid?
   end
@@ -105,7 +105,7 @@ class RequestTest < ActiveSupport::TestCase
     request.status = 'accepted'
     assert_not request.ended?
     assert_not request.valid?
-    request.profile.area.contest.update start_at: Time.now - 1.days, stop_at: Time.now - 2.days
+    request.profile.area.contest.update start_at: Time.zone.now - 1.day, stop_at: Time.zone.now - 2.days
     assert request.ended?
     assert request.valid?
   end
@@ -115,7 +115,7 @@ class RequestTest < ActiveSupport::TestCase
     request.status = 'valutated'
     assert_not request.ended?
     assert_not request.valid?
-    request.profile.area.contest.update start_at: Time.now - 1.days, stop_at: Time.now - 2.days
+    request.profile.area.contest.update start_at: Time.zone.now - 1.day, stop_at: Time.zone.now - 2.days
     assert request.ended?
     assert request.valid?
   end
@@ -197,7 +197,7 @@ class RequestTest < ActiveSupport::TestCase
     request.status = :sended
     assert_not request.valid?
     request.status = :editing
-    c2 = create :career, request: request, start_on: c1.stop_on + 1.days, stop_on: c1.stop_on + 30.days
+    create :career, request: request, start_on: c1.stop_on + 1.day, stop_on: c1.stop_on + 30.days
     assert_equal 7, request.careers.total_countable_months.round
     request.status = :sended
     assert request.valid?

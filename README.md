@@ -1,4 +1,5 @@
 # Selezione
+[![Ruby on Rails CI](https://github.com/isprambiente/Selezione/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/isprambiente/Selezione/actions/workflows/rubyonrails.yml)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.

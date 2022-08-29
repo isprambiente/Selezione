@@ -11,10 +11,10 @@ FactoryBot.define do
     areas_max_choice  { 1 }
     factory :contest_future do
       start_at        { Time.zone.now + 1.day }
-      stop_at         { Time.zone.now + 2.day }
+      stop_at         { Time.zone.now + 2.days }
     end
     factory :contest_ended do
-      start_at        { Time.zone.now - 2.day }
+      start_at        { Time.zone.now - 2.days }
       stop_at         { Time.zone.now - 1.day }
     end
   end

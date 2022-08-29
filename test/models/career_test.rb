@@ -47,38 +47,38 @@ class CareerTest < ActiveSupport::TestCase
   test 'start_on must be present' do
     career = build :career, start_on: nil
     assert_not career.valid?
-    career.start_on = Date.today - 1.year
+    career.start_on = Time.zone.today - 1.year
     assert career.valid?
     assert career.save
   end
   test 'start_on must be minor of stop_on' do
-    career = build :career, start_on: Date.today.-(9.month), stop_on: Date.today.-(11.month)
+    career = build :career, start_on: Time.zone.today.-(9.months), stop_on: Time.zone.today.-(11.months)
     assert_not career.valid?
-    career.start_on = Date.today - 12.month
+    career.start_on = Time.zone.today - 12.months
     assert career.valid?
     assert career.save
   end
   test 'stop_on must be present' do
     career = build :career, stop_on: nil
     assert_not career.valid?
-    career.stop_on = Date.today
+    career.stop_on = Time.zone.today
     assert career.valid?
     assert career.save
   end
   test 'stop_on must be minor or equal to stop_at' do
     request = create :request
-    career = build :career, request: request, stop_on: request.stop_at + 1.days
+    career = build :career, request: request, stop_on: request.stop_at + 1.day
     assert_not career.valid?
     career.stop_on = request.stop_at
     assert career.valid?
-    career.stop_on = request.stop_at - 1.days
+    career.stop_on = request.stop_at - 1.day
     assert career.valid?
     assert career.save
   end
   test 'length must be major of 14' do
-    career = build :career, start_on: Date.today - 16.days, stop_on: Date.today - 2.days
+    career = build :career, start_on: Time.zone.today - 16.days, stop_on: Time.zone.today - 2.days
     assert_not career.valid?
-    career.stop_on = Date.today - 1.days
+    career.stop_on = Time.zone.today - 1.day
     assert career.valid?
     assert career.save
   end

@@ -36,15 +36,15 @@ class Answer < ApplicationRecord
   # validates :question, presence: true
   validates :question, uniqueness: { scope: :request }
   validates :question_request_valid?, presence: true
-  with_options if: :category_file? do |e|
-    e.validates :file, presence: true
-    e.validates :value, absence: true
+  with_options if: :category_file? do
+    validates :file, presence: true
+    validates :value, absence: true
   end
-  with_options unless: :category_file? do |e|
-    e.validates :file, absence: true
-    e.validates :value, presence: true
-    e.validates :value_in_option?, presence: true, if: :selectable?
-    e.validates :values_in_option?, presence: true, if: :multiselectable?
+  with_options unless: :category_file? do
+    validates :file, absence: true
+    validates :value, presence: true
+    validates :value_in_option?, presence: true, if: :selectable?
+    validates :values_in_option?, presence: true, if: :multiselectable?
   end
 
   # Make array from {value}

@@ -52,13 +52,13 @@ class Qualification < ApplicationRecord
   validates :title, presence: true
   validates :year, presence: true
   validates :istitute, presence: true
-  with_options if: :votable? do |e|
-    e.validates :vote, presence: true
-    e.validates :vote_type, presence: true, inclusion: { in: VOTE_TYPE }
+  with_options if: :votable? do
+    validates :vote, presence: true
+    validates :vote_type, presence: true, inclusion: { in: VOTE_TYPE }
   end
-  with_options if: :category_training? do |e|
-    e.validates :duration, presence: true
-    e.validates :duration_type, presence: true, inclusion: { in: DURATION_TYPE }
+  with_options if: :category_training? do
+    validates :duration, presence: true
+    validates :duration_type, presence: true, inclusion: { in: DURATION_TYPE }
   end
 
   before_validation :clear_superfluous_data!

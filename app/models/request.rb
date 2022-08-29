@@ -51,12 +51,12 @@ class Request < ApplicationRecord
   validates :status,  presence: true
   validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
   validates :status, inclusion: { in: STATUSES_ENDED.values }, if: :ended?
-  with_options if: :status_sended? do |e|
-    e.validates :missing_answers?, absence: true
-    e.validates :profile_conflicts?, absence: true
-    e.validates :area_conflicts?, absence: true
-    e.validates :qualification_required?, presence: true, if: :qualifications_requested?
-    e.validates :careers_required?, presence: true
+  with_options if: :status_sended? do
+    validates :missing_answers?, absence: true
+    validates :profile_conflicts?, absence: true
+    validates :area_conflicts?, absence: true
+    validates :qualification_required?, presence: true, if: :qualifications_requested?
+    validates :careers_required?, presence: true
   end
 
   # Test if each required question has an answer

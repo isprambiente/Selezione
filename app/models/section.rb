@@ -23,7 +23,7 @@
 class Section < ApplicationRecord
   include Weightable
   belongs_to :profile
-  has_many :questions
+  has_many :questions, dependent: :destroy
   has_rich_text :top
   has_rich_text :bottom
 

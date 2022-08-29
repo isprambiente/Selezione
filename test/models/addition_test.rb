@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class AdditionTest < ActiveSupport::TestCase
   test 'valid from factory' do
