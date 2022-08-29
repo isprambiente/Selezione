@@ -32,6 +32,12 @@ class RequestTest < ActiveSupport::TestCase
     assert_equal 'Qualification', request.qualifications.new.class.name
   end
 
+  test 'has many additions' do
+    request = create :request
+    assert_equal 'ActiveRecord::Associations::CollectionProxy', request.additions.class.name
+    assert_equal 'Addition', request.additions.new.class.name
+  end
+
   # Validations
   test 'presence of profile' do
     request = build :request, profile: nil
