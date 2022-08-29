@@ -1,5 +1,8 @@
 # Selezione
 [![Ruby on Rails CI](https://github.com/isprambiente/Selezione/actions/workflows/rubyonrails.yml/badge.svg)](https://github.com/isprambiente/Selezione/actions/workflows/rubyonrails.yml)
+[![Rails Style Guide](https://img.shields.io/badge/code_style-rubocop-brightgreen.svg)](https://github.com/rubocop/rubocop-rails)
+[![Rails Style Guide](https://img.shields.io/badge/code_style-community-brightgreen.svg)](https://rails.rubystyle.guide)
+
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
