@@ -58,6 +58,10 @@ group :development, :test do
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   # popolate test db
   gem 'factory_bot_rails'
+  # code quality
+  gem 'rubocop-rails', require: false
+  # vulnerability scanner
+  gem 'brakeman', require: false
 end
 
 group :development do
@@ -69,9 +73,6 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
-
-  # code quality
-  gem 'rubocop-rails', require: false
 
   # documentation
   gem 'yard'
