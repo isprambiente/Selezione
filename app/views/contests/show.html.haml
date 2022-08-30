@@ -1,25 +1,23 @@
 %turbo-frame#yield
-  %turbo-frame#modal
-    .modal.is-active
-      .modal-background{data: {action: "click->page#closeModal"}}
-      .modal-card
-        %header.modal-card-head
-          %p.modal-card-title= @contest.title
-          %button.delete{aria: {label: "close"}, data: {action: "click->page#closeModal"}}
-
-        .modal-card-body
-          .box
-            %p.heading= t 'activerecord.attributes.contest.code'
-            %p.title.is-size-5= @contest.code
-            %p.heading= t 'activerecord.attributes.contest.stop_at'
-            %p.title.is-size-5= l @contest.stop_at
-            = @contest.body
-          - @contest.areas.each do |area|
-            %h6.title.is-size-6= area.title
-            - if @contest.active?
-              = render partial: 'profiles/profile_active', collection: area.profiles, as: :profile
-            - else
-              = render partial: 'profiles/profile_ended', collection: area.profiles, as: :profile 
-      
+  %h3.title.has-text-centered
+    %i.fas.fa-calendar
+    = @contest.title
+  .columns
+    %aside.column.is-3
+    .column
+      #info.box
+        %p.heading= t 'activerecord.attributes.contest.code'
+        %p.title.is-size-5= @contest.code
+        %p.heading= t 'activerecord.attributes.contest.stop_at'
+        %p.title.is-size-5= l @contest.stop_at
+        = @contest.body
+      - @contest.areas.each do |area|
+        %section{id: area.id}
+        %h6.title.is-size-6= area.title
+        - if @contest.active?
+          = render partial: 'profiles/profile_active', collection: area.profiles, as: :profile
+        - else
+          = render partial: 'profiles/profile_ended', collection: area.profiles, as: :profile 
+  
 
 

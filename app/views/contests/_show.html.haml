@@ -1,7 +1,7 @@
 %turbo-frame#yield
   %h3.title.has-text-centered
-    = fa 'fa-calendar-check'
-    = t 'activerecord.models.contest.other'
+    %i.fas.fa-calendar
+    = @contest.title
   .columns
     %aside.column.is-3
       = form_with scope: 'filter', url: contests_path, method: :get, data: {turbo_frame: 'contests', controller: 'form', form_target: 'sender'} do |f|
@@ -29,5 +29,5 @@
               = f.radio_button :group, '', selected: true, data: {action: "form#sendForm"}
               %span= t('site.generic.all')
 
-    .column= render 'index'
+    .column= render 'show'
 

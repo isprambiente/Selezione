@@ -3,16 +3,14 @@
 # This controller manage the {Contest} access for unauthenticated users and normal users
 class ContestsController < ApplicationController
   before_action :set_contest, only: %i[show]
+  before_action :list_contests, only: %i[index]
 
-  # GET /contests or /contests.json
-  def index; end
-
-  # GET /contests/list
-  def list
-    type = filter_params[:type] == 'ended' ? 'ended' : 'active'
-    @text = ['title ilike :text or code ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
-    # @group = { group: filter_params[:group] } if filter_params[:group].present?
-    @pagy, @contests = pagy(Contest.send(type).where(@text).includes(:areas, :profiles), items: 12)
+  # GET /contests
+  def index
+    respond_to do |format|
+      format.turbo_stream { render 'index' }
+      format.html { }
+    end
   end
 
   # GET /contests/1
@@ -20,9 +18,16 @@ class ContestsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Set @contest from param :id
   def set_contest
     @contest = Contest.find(params[:id])
+  end
+
+  # Set @pagy, @contests filtered by {filter_params}
+  def list_contests
+    type = filter_params[:type] == 'ended' ? 'ended' : 'active'
+    @text = ['title ilike :text or code ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
+    @pagy, @contests = pagy(Contest.send(type).where(@text).includes(:areas, :profiles), items: 12)
   end
 
   # Filter params for contests search

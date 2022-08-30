@@ -1,9 +1,13 @@
-%a.box.is-hoverable{href: contest_path(contest), data: {turbo_frame: 'modal'}}
-  %h5.title.is-size-5
-    = contest.title
-  %h6.subtitle.is-size-6
-    = t 'activerecord.attributes.contest.code'
-    = contest.code
-    \-
-    = t 'activerecord.attributes.contest.stop_at'
-    = l contest.stop_at
+%a.list-item.box.is-hoverable{href: contest_path(contest), data: {turbo_frame: 'yield'}}
+  .list-item-content
+    %h4.list-item-title.is-size-4= contest.title
+    .list-item-description
+      .field.is-grouped.is-grouped-multiline
+        .control
+          .tags.has-addons 
+            %span.tag.is-link= fa('fa-barcode fa-fw')
+            %span.tag= contest.code
+        .control
+          .tags.has-addons
+            %span.tag.is-warning= fa('fa-calendar-xmark fa-fw')
+            %span.tag= l contest.stop_at, format: :short

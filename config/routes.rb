@@ -2,9 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users
-  resources :contests, only: %i[index show] do
-    get :list, on: :collection
-  end
+  resources :contests, only: %i[index show]
 
   # Defines the root path route ("/")
   root 'contests#index'
