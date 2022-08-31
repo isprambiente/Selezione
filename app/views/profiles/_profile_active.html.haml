@@ -1,4 +1,7 @@
-%a.box.is-hoverable{}
-  %h6.title.is-size-6= profile.title
-  .has-text-centered
-    %button.button.is-success Registrati!
+%a.list-item.box.is-hoverable{}
+  .list-item-content
+    %h4.list-item-title.is-size-4= profile.title
+    .list-item-descreption.has-text-centered
+      = form_with scope: :request, url: requests_path, method: :post do |form|
+        = form.hidden_field :profile_id, value: profile.id
+        = form.button 'Registrati!', class: 'button is-success'

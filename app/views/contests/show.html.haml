@@ -3,21 +3,30 @@
     %i.fas.fa-calendar
     = @contest.title
   .columns
-    %aside.column.is-3
+    %aside.column.is-3.menu
+      %nav.panel
+        %p.panel-heading Menu
+        = panel_link 'fa-circle-info', 'Informazioni generali', contest_path(@contest, anchor: 'info'), data: {page_id_param: "info", action: 'page#scrollTo'}
+        = panel_link_back contests_path
+        %p.panel-block.is-size-7.has-text-grey Aree
+        - @contest.areas.each do |area|
+          = panel_link 'fa-list', area.title, contest_path(@contest, anchor: "area_#{area.id}"), data: {page_id_param: "area_#{area.id}", action: 'page#scrollTo'}
     .column
-      #info.box
+      %a{id: 'info'}
+      .box
         %p.heading= t 'activerecord.attributes.contest.code'
         %p.title.is-size-5= @contest.code
         %p.heading= t 'activerecord.attributes.contest.stop_at'
         %p.title.is-size-5= l @contest.stop_at
         = @contest.body
       - @contest.areas.each do |area|
-        %section{id: area.id}
-        %h6.title.is-size-6= area.title
-        - if @contest.active?
-          = render partial: 'profiles/profile_active', collection: area.profiles, as: :profile
-        - else
-          = render partial: 'profiles/profile_ended', collection: area.profiles, as: :profile 
+        %section{id: "area_#{area.id}"}
+          %h6.title.is-size-6= area.title
+          .list
+            - if @contest.active?
+              = render partial: 'profiles/profile_active', collection: area.profiles, as: :profile
+            - else
+              = render partial: 'profiles/profile_ended', collection: area.profiles, as: :profile 
   
 
 

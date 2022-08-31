@@ -12,4 +12,10 @@ export default class extends Controller {
     [].forEach.call(document.getElementsByClassName('modal'), (item) => {item.classList.remove('is-active')})
     if ( document.getElementById("yield") == null) { window.location.replace("/") }
   }
+  
+  scrollTo({params}) {
+    console.log('scrollTo')
+    var getMeTo = document.getElementById(params.id);
+    getMeTo.scrollIntoView({behavior: 'smooth'}, true);
+  }
 }

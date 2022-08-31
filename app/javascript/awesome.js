@@ -6,6 +6,9 @@ import {
   faBarcode,
   faCalendarCheck,
   faCalendarXmark,
+  faCircleInfo,
+  faChevronLeft,
+  faList,
   faSearch,
 } from '@fortawesome/free-solid-svg-icons'
 
@@ -13,6 +16,9 @@ library.add(
   faBarcode,
   faCalendarCheck,
   faCalendarXmark,
+  faCircleInfo,
+  faChevronLeft,
+  faList,
   faSearch
 )
 
