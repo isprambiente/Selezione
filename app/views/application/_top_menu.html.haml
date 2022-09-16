@@ -1,9 +1,30 @@
-.container
-  %nav.navbar.has-background-primary-dark{role: 'navigation', aria_label: 'main navigation'}
-    .navbar-brand
-      %a.navbar-item.has-text-weight-bold.is-italic.is-size-5{href: root_path, data: {turbo_frame: 'yield'}}
-        %span.icon
-          %i.fas.fa-signature.fa-fw
-        %span S
-        Selezione
+#nav3
+  .container
+    %nav.navbar{role: 'navigation', aria_label: 'main navigation'}
+      .navbar-brand
+        %a.navbar-item.has-text-weight-bold.is-italic.is-size-5.pl-5{href: root_path, data: {turbo_frame: 'yield'}}
+          %span.icon= fa 'fa-check-double'
+          %span S
+          elezione
+        %a.navbar-burger{ role: "button", aria: {label: "menu", expanded: "false"}, data: {action: 'page#toggleMenu'}}
+          %span{aria: {hidden: true}}
+          %span{aria: {hidden: true}}
+          %span{aria: {hidden: true}}
+      .navbar-menu{data: {page_target: 'menu'}}
+        .navbar-start
+          %a.navbar-item{href: contests_path, data: {turbo_frame: 'yield'}}= fa 'fa-calendar-check fa-fw', t('activerecord.models.contest.other')
+          %a.navbar-item{href: requests_path, data: {turbo_frame: 'yield'}}= fa 'fa-check fa-fw', t('activerecord.models.request.other')
+        .navbar-end
+          .navbar-item.has-dropdown.is-hoverable
+            %a.navbar-link{src: root_path}= fa 'fa-globe'
+            .navbar-dropdown
+              %a.navbar-item{href: root_path(locale: 'it'), data: {turbo: false}}= fa 'fa-flag fa-fw', 'ITA'
+              %a.navbar-item{href: root_path(locale: 'en'), data: {turbo: false}}= fa 'fa-flag fa-fw', 'ENG'
+          - if current_user.present?
+            .navbar-item.has-dropdown.is-hoverable
+              %a.navbar-link{src: requests_path}= fa 'fa-user'
+              .navbar-dropdown
+                %a.navbar-item{href: destroy_user_session_path, data: {method: :delete}}= fa 'fa-right-from-bracket fa-fw', t('site.generic.logout')
+          - else
+            %a.navbar-item{href: new_user_session_path, data: {turbo: false}}= fa 'fa-right-to-bracket fa-fw'
 

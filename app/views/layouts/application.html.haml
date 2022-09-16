@@ -12,11 +12,12 @@
     = javascript_include_tag "application", "data-turbo-track": "reload", defer: true
   %body{ data: { controller: "page" } }
     %header
-      %turbo-frame#nav1 { src: Settings.header }
+      %turbo-frame#nav1{ src: Settings.header }
       = render 'top_menu'
     %section.section
       .container= yield
     %footer
+      %turbo-frame#footer{src: Settings.footer}
     %turbo-frame#modal
     = Time.zone.now
 

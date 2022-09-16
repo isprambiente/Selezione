@@ -211,6 +211,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_085454) do
 
   create_table "users", force: :cascade do |t|
     t.string "tax_code", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false
     t.datetime "current_sign_in_at"

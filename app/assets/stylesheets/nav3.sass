@@ -1,37 +1,39 @@
 #nav3
-  .navbar-burger
-    color: #ffffff
-    border-left: $primary solid 1px
-  .navbar-brand
-   a
-      color: #ffffff
-      span
-        color: $secondary
+  background: $primary-dark
   nav.navbar
+    background: $primary-dark
     min-height: 40px
-    .navbar-menu, .navbar-dropdown
-      border: none
-      background: $primary-dark
-      a.navbar-item, a.navbar-link
-        white-space: nowrap
-        color: $white
-        font-size: 1rem
+    .navbar-burger
+      color: #ffffff
+      border-left: $primary solid 1px
+    .navbar-brand
+     a
+        color: #ffffff
+        span
+          color: $secondary
 
-        &:hover, &:focus, &:active
-          transition: all 0.5s ease  
-          background: $primary !important
+  .navbar-menu, .navbar-dropdown
+    border: none
+    background: $primary-dark
+    a.navbar-item, a.navbar-link
+      white-space: nowrap
+      color: $white
+      font-size: 1rem
 
-.navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link
-  background: $primary  
-@media screen and (max-width: 1023px)
-  #nav3
-    .navbar-menu
+      &:hover, &:focus, &:active
+        transition: all 0.5s ease  
+        background: $primary !important
+
+  .navbar-item.has-dropdown:focus .navbar-link, .navbar-item.has-dropdown:hover .navbar-link, .navbar-item.has-dropdown.is-active .navbar-link
+    background: $primary  
+  @media screen and (max-width: 1023px)
+  .navbar-menu
+    background: transparent
+    a
       background: transparent
-      a
+      &:hover 
+        transition: all 0.5s ease  
+        background: $primary
+      &:focus, &:active
         background: transparent
-        &:hover 
-          transition: all 0.5s ease  
-          background: $primary
-        &:focus, &:active
-          background: transparent
 

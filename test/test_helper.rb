@@ -13,6 +13,4 @@ class ActiveSupport::TestCase
 
   # include factory bot
   include FactoryBot::Syntax::Methods
-
-  # Add more helper methods to be used by all tests here...
 end

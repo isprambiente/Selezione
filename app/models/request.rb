@@ -45,12 +45,19 @@ class Request < ApplicationRecord
 
   delegate :active?, :ended?, :area, :contest, :qualifications_requested, :qualifications_requested?, :stop_at, to: :profile, allow_nil: true
   enum status: STATUSES, _prefix: true
+  attr_accessor :confirm
 
   validates :user, presence: true
   validates :profile, presence: true
   validates :status,  presence: true
-  validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
   validates :status, inclusion: { in: STATUSES_ENDED.values }, if: :ended?
+  validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
+  validates :confirm, acceptance: true, presence: true, if: :active?, on: :update
+
+  with_options :active? do
+
+  end
+
   with_options if: :status_sended? do
     validates :missing_answers?, absence: true
     validates :profile_conflicts?, absence: true
@@ -99,5 +106,17 @@ class Request < ApplicationRecord
   # @return [Boolean] true if is present
   def careers_required?
     careers.total_countable_months >= profile.careers_requested
+  end
+
+  # print request code
+  # @return [String] standardized code of request
+  def code
+    format '%06i', id
+  end
+
+  # prist request title
+  # @return [String] title of request
+  def title
+    [code, contest.title].join ' | '
   end
 end

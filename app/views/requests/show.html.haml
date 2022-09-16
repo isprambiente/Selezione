@@ -1,0 +1,20 @@
+%turbo-frame#yield
+  %h3.title.has-text-centered
+    %i.fas.fa-calendar
+    = @request.title
+  .columns
+    %aside.column.is-3.menu
+      %nav.panel
+        %p.panel-heading Menu
+        =  panel_link 'fa-circle-info', t('site.generic.start'), root_path, data: {turbo_frame: 'request'} if @profile.careers_enabled?
+
+        - @profile.sections.each do |section|
+          = panel_link 'fa-list', section.title, root_path, data: {turbo_frame: 'request'}
+        =  panel_link 'fa-briefcase', t('activerecord.models.career.other'), root_path, data: {turbo_frame: 'request'} if @profile.careers_enabled?
+        =  panel_link 'fa-graduation-cap', t('activerecord.models.qualification.other'), root_path, data: {turbo_frame: 'request'} if @profile.qualifications_enabled?
+        =  panel_link 'fa-folder-plus', t('activerecord.models.other.other'), root_path, data: {turbo_frame: 'request'} if @profile.others_enabled?
+
+
+    .column
+      .box
+

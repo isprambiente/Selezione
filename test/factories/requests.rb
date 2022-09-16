@@ -5,5 +5,6 @@ FactoryBot.define do
     user
     profile
     status { 'editing' }
+    confirm { '1' }
   end
 end

@@ -203,4 +203,12 @@ class RequestTest < ActiveSupport::TestCase
     assert request.valid?
     assert request.save
   end
+
+  test 'confirm should be true on update if is active' do
+    request = create :request, confirm: false
+    assert_not request.valid?
+    request.confirm = '1'
+    assert request.valid?
+    assert request.status_sended!
+  end
 end

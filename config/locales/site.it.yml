@@ -5,6 +5,7 @@ it:
       back: Indietro
       from: da
       groups: Gruppi
+      info: Informazioni generali
       login: Accedi
       login_button: Accedi per continuare
       logout: Disconnettiti
@@ -17,6 +18,7 @@ it:
       reserved_seat: Posti prenotati
       save: Save
       search: Ricerca
+      start: Pagina iniziale
       text: Testo
       to: a
     contests:

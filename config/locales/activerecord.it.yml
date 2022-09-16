@@ -30,10 +30,22 @@ it:
       area:
         one: Area
         other: Aree
+      career:
+        one: Esperienza lavorativa
+        other: Esperienze lavorative
       contest:
         one: Concorso
         other: Concorsi
+      other:
+        one: Altro titolo
+        other: Altri titoli
       profile:
         one: Profilo
         other: Profili
+      qualification:
+        one: titolo di studio
+        other: Titoli di studio
+      request:
+        one: Richiesta
+        other: Richieste
 

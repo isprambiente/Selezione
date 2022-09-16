@@ -3,10 +3,10 @@
 # This module contain the generic helper for Selezione
 module ApplicationHelper
   include Pagy::Frontend
-  
-  def fa(icon, text=nil, **params)
+
+  def fa(icon, text = nil, **params)
     params[:class] = "fa-solid #{icon}"
-    [content_tag(:i, nil, params),text].compact.join(' ').html_safe
+    safe_join [content_tag(:i, nil, params), text], ' '
   end
 
   def link_back(url, **params)
@@ -14,12 +14,11 @@ module ApplicationHelper
   end
 
   def panel_link(icon, text, url, **params)
-    params[:class] = 'panel-block ' + params[:class].to_s 
-    link_to content_tag(:span, fa(icon), class: 'panel-icon').html_safe + text, url, params
+    params[:class] = "panel-block #{params[:class]}"
+    safe_join [link_to(content_tag(:span, fa(icon), class: 'panel-icon') + text, url, params)]
   end
 
-  def panel_link_back(url, **params)
+  def panel_link_back(url, **_params)
     panel_link 'fa-chevron-left', t('site.generic.back'), url
   end
-
 end

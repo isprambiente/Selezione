@@ -8,7 +8,9 @@
         %p.panel-heading Menu
         = panel_link 'fa-circle-info', 'Informazioni generali', contest_path(@contest, anchor: 'info'), data: {page_id_param: "info", action: 'page#scrollTo'}
         = panel_link_back contests_path
-        %p.panel-block.is-size-7.has-text-grey Aree
+        %p.panel-block.has-text-grey
+          %span.panel-icon
+          %span.is-size-7 Aree
         - @contest.areas.each do |area|
           = panel_link 'fa-list', area.title, contest_path(@contest, anchor: "area_#{area.id}"), data: {page_id_param: "area_#{area.id}", action: 'page#scrollTo'}
     .column

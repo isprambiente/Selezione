@@ -1,0 +1,17 @@
+%a.list-item.box.is-hoverable{href: request_path(request), data: {turbo_frame: 'yield'}}
+  .list-item-content
+    .list-item-title
+      = request.code
+      \|
+      = request.contest.title
+    .list-item-description.is-size-7.pb-2= [request.area.title, request.profile.title].join ', '
+    .list-item-description
+      .field.is-grouped.is-grouped-multiline
+        .control
+          .tags.has-addons 
+            %span.tag.is-link= fa('fa-play fa-fw')
+            %span.tag= request.status
+        .control
+          .tags.has-addons
+            %span.tag.is-warning= fa('fa-calendar-xmark fa-fw')
+            %span.tag= l request.contest.stop_at, format: :short

@@ -2,7 +2,7 @@
 
 Rails.application.routes.draw do
   resources :contests, only: %i[index show]
-  resources :requests, only: %i[index show create update]
+  resources :requests, except: %i[new]
 
   devise_for :users
 

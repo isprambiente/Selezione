@@ -1,6 +1,6 @@
 %turbo-frame#yield
   %h3.title.has-text-centered
-    = fa 'fa-calendar-check', t('activerecord.models.contest.other')
+    = fa 'fa-check', t('activerecord.models.request.other')
   .columns
     %aside.column.is-3
       = form_with scope: 'filter', url: contests_path, method: :get, data: {turbo_frame: 'contests', controller: 'form', form_target: 'sender'} do |f|
@@ -13,10 +13,13 @@
                 %i.fa-solid.fa-search
           %label.panel-block
             = f.radio_button :type, '', selected: true, data: {action: "form#sendForm"}
-            %span= t('active', scope: 'site.contests.scope')
+            %span= t('all', scope: 'site.requests.scope')
           %label.panel-block
             = f.radio_button :type, 'ended', data: {action: "form#sendForm"}
-            %span= t('ended', scope: 'site.contests.scope')
+            %span= t('not_sended', scope: 'site.requests.scope')
+          %label.panel-block
+            = f.radio_button :type, 'ended', data: {action: "form#sendForm"}
+            %span= t('sended', scope: 'site.requests.scope')
         - if @groups.present?
           %nav.panel
             %p.panel-heading= t 'site.generic.groups'
@@ -29,4 +32,3 @@
               %span= t('site.generic.all')
 
     .column= render 'index'
-
