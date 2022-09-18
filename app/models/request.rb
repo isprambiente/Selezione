@@ -119,4 +119,11 @@ class Request < ApplicationRecord
   def title
     [code, contest.title].join ' | '
   end
+
+  # cicle status_sended! and status_editing!
+  # @return [Boolean] true if updated
+  def switch!(confirmation=nil)
+    self.confirm = confirmation
+    status_editing? ? status_sended! : status_editing!
+  end
 end
