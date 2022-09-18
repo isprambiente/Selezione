@@ -37,7 +37,7 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'an user should create request' do
     sign_in @user
-    assert_difference(['Request.count','@user.requests.count']) do
+    assert_difference(['Request.count']) do
       post requests_url, params: { request: { profile_id: create(:profile).id } }
     end
 
@@ -87,13 +87,15 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'authenticated user can update self request' do
     sign_in @user
-    get request_url @user_request
-    assert_response :success
+    patch request_url(@user_request), params: { request: { confirm: '1' } }
+    assert_response :redirect
+    assert_equal 'sended', Request.find(@user_request.id).status
+    assert_redirected_to request_url(@user_request, locale: :it)
   end
 
   test 'an user cant update other user request' do
     sign_in @user
-    get request_url @other_request
+    patch request_url(@other_request), params: { request: { confirm: '1' } }
     assert_response :unauthorized
   end
 
