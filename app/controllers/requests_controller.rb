@@ -11,7 +11,7 @@ class RequestsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_request, only: %i[show edit update]
   before_action :set_requests, only: %i[index]
-  before_action :check_right
+  before_action :check_right, only: %i[show edit update]
 
   # GET /requests or /requests.json
   def index
@@ -33,18 +33,16 @@ class RequestsController < ApplicationController
     if @request.persisted?
       redirect_to request_url(@request)
     else
-      redirect_to error_500_url
+      record_not_found
     end
   end
 
   # PATCH/PUT /requests/1 or /requests/1.json
   def update
-    respond_to do |format|
-      if @request.update(update_request_params)
-        format.html { redirect_to request_url(@request), notice: 'Request was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @request.switch!(update_request_params[:confirm])
+      redirect_to request_url(@request), notice: 'Request was successfully updated.'
+    else
+      redirect_to request_url(@request), aliert: 'Request updated fail'
     end
   end
 
@@ -70,7 +68,7 @@ class RequestsController < ApplicationController
 
   # Deny access if request is not afferent to current user
   def check_right
-    unauthorized! unless @request.user == current_user
+    unauthorized! unless @request.try(:user) == current_user
   end
 
   # Set @pagy, @contests filtered by {filter_params}
@@ -91,7 +89,7 @@ class RequestsController < ApplicationController
 
   # Filter params for create {Request}
   def update_request_params
-    params.require(:request).permit(:confirmation)
+    params.require(:request).permit(:confirm)
   end
 
 end
