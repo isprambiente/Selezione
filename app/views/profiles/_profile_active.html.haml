@@ -1,7 +1,10 @@
-%a.list-item.box.is-hoverable{}
+.list-item.box.is-hoverable
   .list-item-content
     %h4.list-item-title.is-size-4= profile.title
     .list-item-descreption.has-text-centered
-      = form_with scope: :request, url: requests_path, method: :post do |form|
-        = form.hidden_field :profile_id, value: profile.id
-        = form.button 'Registrati!', class: 'button is-success'
+      - if user_signed_in?
+        = form_with scope: :request, url: user_requests_path(current_user), method: :post do |form|
+          = form.hidden_field :profile_id, value: profile.id
+          = form.button fa('fa-address-card fa-fw', 'Registrati'), class: 'button is-success'
+      - else 
+        = link_to fa('fa-right-to-bracket fa-fw', 'Accedi per continuare!'), new_user_session_path, data: {turbo: false}, class: 'button is-success' 

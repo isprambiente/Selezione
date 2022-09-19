@@ -2,9 +2,11 @@
 
 Rails.application.routes.draw do
   resources :contests, only: %i[index show]
-  resources :requests, except: %i[new]
+  resources :users, only: %i[] do
+    resources :requests, except: %i[new destroy]
+  end
 
-  devise_for :users
+  devise_for :users, prefix: 'auth'
 
   # Defines the root path route ("/")
   root 'contests#index'

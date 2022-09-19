@@ -8,12 +8,11 @@
 # * {set_request} for {show}, {edit}, {update}, {destroy}
 # * {set_requests} for {index}
 class RequestsController < ApplicationController
-  before_action :authenticate_user!
+  include Userable
   before_action :set_request, only: %i[show edit update]
   before_action :set_requests, only: %i[index]
-  before_action :check_right, only: %i[show edit update]
 
-  # GET /requests or /requests.json
+  # GET /users/:user_id/requests
   def index
     respond_to do |format|
       format.turbo_stream { render 'index' }
@@ -21,38 +20,28 @@ class RequestsController < ApplicationController
     end
   end
 
-  # GET /requests/1 or /requests/1.json
+  # GET /users/:user_id/requests/1
   def show; end
 
-  # GET /requests/1/edit
+  # GET /users/:user_id/requests/1/edit
   def edit; end
 
-  # POST /requests or /requests.json
+  # POST users/:user_id/requests
   def create
     @request = current_user.requests.find_or_create_by(profile_id: create_request_params[:profile_id])
     if @request.persisted?
-      redirect_to request_url(@request)
+      redirect_to user_request_url(current_user, @request)
     else
       record_not_found
     end
   end
 
-  # PATCH/PUT /requests/1 or /requests/1.json
+  # PATCH/PUT /user/:user_id/requests/1
   def update
     if @request.switch!(update_request_params[:confirm])
-      redirect_to request_url(@request), notice: 'Request was successfully updated.'
+      redirect_to user_request_url(current_user, @request), notice: 'Request was successfully updated.'
     else
-      redirect_to request_url(@request), aliert: 'Request updated fail'
-    end
-  end
-
-  # DELETE /requests/1 or /requests/1.json
-  def destroy
-    @request.destroy
-
-    respond_to do |format|
-      format.html { redirect_to requests_url, notice: 'Request was successfully destroyed.' }
-      format.json { head :no_content }
+      redirect_to edit_user_request_url(current_user, @request), aliert: 'Request updated fail'
     end
   end
 
@@ -60,15 +49,10 @@ class RequestsController < ApplicationController
 
   # Set @request from param :id
   def set_request
-    @request = Request.includes(profile: { area: :contest }).find(params[:id])
+    @request = current_user.requests.includes(profile: { area: :contest }).find(params[:id])
     @profile = @request.profile
     @area = @profile.area
     @contest = @area.contest
-  end
-
-  # Deny access if request is not afferent to current user
-  def check_right
-    unauthorized! unless @request.try(:user) == current_user
   end
 
   # Set @pagy, @contests filtered by {filter_params}
@@ -91,5 +75,4 @@ class RequestsController < ApplicationController
   def update_request_params
     params.require(:request).permit(:confirm)
   end
-
 end

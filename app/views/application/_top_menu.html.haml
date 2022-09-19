@@ -13,18 +13,19 @@
       .navbar-menu{data: {page_target: 'menu'}}
         .navbar-start
           %a.navbar-item{href: contests_path, data: {turbo_frame: 'yield'}}= fa 'fa-calendar-check fa-fw', t('activerecord.models.contest.other')
-          %a.navbar-item{href: requests_path, data: {turbo_frame: 'yield'}}= fa 'fa-check fa-fw', t('activerecord.models.request.other')
+          - if user_signed_in?
+            %a.navbar-item{href: user_requests_path(current_user), data: {turbo_frame: 'yield'}}= fa 'fa-check fa-fw', t('activerecord.models.request.other')
         .navbar-end
           .navbar-item.has-dropdown.is-hoverable
             %a.navbar-link{src: root_path}= fa 'fa-globe'
             .navbar-dropdown
               %a.navbar-item{href: root_path(locale: 'it'), data: {turbo: false}}= fa 'fa-flag fa-fw', 'ITA'
               %a.navbar-item{href: root_path(locale: 'en'), data: {turbo: false}}= fa 'fa-flag fa-fw', 'ENG'
-          - if current_user.present?
+          - if user_signed_in?
             .navbar-item.has-dropdown.is-hoverable
-              %a.navbar-link{src: requests_path}= fa 'fa-user'
+              %a.navbar-link{src: user_requests_path(current_user)}= fa 'fa-user'
               .navbar-dropdown
                 %a.navbar-item{href: destroy_user_session_path, data: {method: :delete}}= fa 'fa-right-from-bracket fa-fw', t('site.generic.logout')
           - else
-            %a.navbar-item{href: new_user_session_path, data: {turbo: false}}= fa 'fa-right-to-bracket fa-fw'
+            %a.navbar-item{href: new_user_session_path, data: {turbo: 'false'}}= fa 'fa-right-to-bracket fa-fw'
 

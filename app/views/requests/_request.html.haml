@@ -1,4 +1,4 @@
-%a.list-item.box.is-hoverable{href: request_path(request), data: {turbo_frame: 'yield'}}
+%a.list-item.box.is-hoverable{href: user_request_path(current_user, request), data: {turbo_frame: 'yield'}}
   .list-item-content
     .list-item-title
       = request.code

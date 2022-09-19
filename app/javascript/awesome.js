@@ -3,6 +3,7 @@ import { config, library, dom } from '@fortawesome/fontawesome-svg-core'
 config.mutateApproach = 'sync'
 
 import {
+  faAddressCard,
   faBarcode,
   faBriefcase,
   faCalendarCheck,
@@ -24,6 +25,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
+  faAddressCard,
   faBarcode,
   faBriefcase,
   faCalendarCheck,
