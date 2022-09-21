@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @addition %>
+
+<div>
+  <%= link_to "Edit this addition", edit_addition_path(@addition) %> |
+  <%= link_to "Back to additions", additions_path %>
+
+  <%= button_to "Destroy this addition", @addition, method: :delete %>
+</div>

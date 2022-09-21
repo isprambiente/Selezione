@@ -2,8 +2,11 @@
 
 Rails.application.routes.draw do
   resources :contests, only: %i[index show]
-  resources :users, only: %i[] do
-    resources :requests, except: %i[new destroy]
+  scope module: 'user' do
+    resources :users, only: %i[] do
+      resources :requests, except: %i[new destroy]
+      resources :additions
+    end
   end
 
   devise_for :users, prefix: 'auth'

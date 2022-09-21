@@ -1,0 +1,17 @@
+<div id="<%= dom_id addition %>">
+  <p>
+    <strong>Description:</strong>
+    <%= addition.description %>
+  </p>
+
+  <p>
+    <strong>Url:</strong>
+    <%= addition.url %>
+  </p>
+
+  <p>
+    <strong>File:</strong>
+    <%= link_to addition.file.filename, addition.file if addition.file.attached? %>
+  </p>
+
+</div>

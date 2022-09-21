@@ -2,13 +2,14 @@
 
 # this controller manage the {Request} views.
 # Only authenticated users can access to this controller
+# Each user access to this controller scoped by his user_id
 #
 # === Before action
 # * authenticate_user! for all action
+# * check_right! for all action
 # * {set_request} for {show}, {edit}, {update}, {destroy}
 # * {set_requests} for {index}
-class RequestsController < ApplicationController
-  include Userable
+class User::RequestsController < User::ApplicationController
   before_action :set_request, only: %i[show edit update]
   before_action :set_requests, only: %i[index]
 
