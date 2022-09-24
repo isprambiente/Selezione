@@ -11,23 +11,21 @@ module Requestable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_request #, only: :set_request_list
+    before_action :set_prerequisite
+    before_action :unauthorized!, except: %i[ index show ], unless: :editable?
   end
 
   private
 
   # Set {Request from params request_id}
   # @return [Object] {Request} istance
-  def set_request
-    @request = current_user.requests.includes(profile: { area: :contest }).find(request_param)
+  def set_prerequisite
+    @request = current_user.requests.includes(profile: { area: :contest }).find(params[:request_id])
+    @editable = @request.editable?
   end
 
-  # Filter params to get request_id
-  def request_param
-    params.require(:request_id)
-  end
-
-  def set_request_list
-    %i[ index ]
+  # @return true if @request.editable?
+  def editable?
+    @editable
   end
 end

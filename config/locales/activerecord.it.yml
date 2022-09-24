@@ -25,8 +25,10 @@ it:
         qualifications_requested: Titoli di studio richiesti
         qualifications_alternative: Titoli di studio alternativi ai periodi lavorativi
         others_enabled: Altri titoli
-
     models:
+      addition:
+        one: Altro titolo
+        other: Altri titoli
       area:
         one: Area
         other: Aree
@@ -36,9 +38,6 @@ it:
       contest:
         one: Concorso
         other: Concorsi
-      other:
-        one: Altro titolo
-        other: Altri titoli
       profile:
         one: Profilo
         other: Profili
@@ -48,4 +47,6 @@ it:
       request:
         one: Richiesta
         other: Richieste
-
+      section:
+        one: Sezione
+        other: Sezioni

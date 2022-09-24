@@ -16,15 +16,18 @@ class User::AdditionsController < User::ApplicationController
   # GET /users/:user_id/additions?request_id=:request_id
   def index
     @additions = @request.additions
+    render partial: 'index' if turbo_frame_request?
   end
 
   # GET /additions/1 or /additions/1.json
   def show
+    render partial: 'show' if turbo_frame_request?
   end
 
   # GET /additions/new
   def new
     @addition = Addition.new
+    render partial: 'new' if turbo_frame_request?
   end
 
   # GET /additions/1/edit
@@ -33,40 +36,28 @@ class User::AdditionsController < User::ApplicationController
 
   # POST /additions or /additions.json
   def create
-    @addition = Addition.new(addition_params)
+    @addition = @request.additions.new(addition_params)
 
-    respond_to do |format|
-      if @addition.save
-        format.html { redirect_to addition_url(@addition), notice: "Addition was successfully created." }
-        format.json { render :show, status: :created, location: @addition }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @addition.errors, status: :unprocessable_entity }
-      end
+    if @addition.save
+      redirect_to user_request_additions_url(current_user), notice: "Addition was successfully created." 
+    else
+      render :new, status: :unprocessable_entity 
     end
   end
 
   # PATCH/PUT /additions/1 or /additions/1.json
   def update
-    respond_to do |format|
-      if @addition.update(addition_params)
-        format.html { redirect_to addition_url(@addition), notice: "Addition was successfully updated." }
-        format.json { render :show, status: :ok, location: @addition }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @addition.errors, status: :unprocessable_entity }
-      end
+    if @addition.update(addition_params)
+     redirect_to user_request_addition_url(current_user, @request, @addition), notice: "Addition was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity 
     end
   end
 
   # DELETE /additions/1 or /additions/1.json
   def destroy
     @addition.destroy
-
-    respond_to do |format|
-      format.html { redirect_to additions_url, notice: "Addition was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to user_request_additions_url(current_user, @request), notice: destroy_message(@addition) 
   end
 
   private
@@ -91,6 +82,6 @@ class User::AdditionsController < User::ApplicationController
 
   # Filter params to manage {Addition}.
   def addition_params
-    params.require(:addition).permit(:description, :url, :file)
+    params.require(:addition).permit(:title, :description, :url, :file)
   end
 end

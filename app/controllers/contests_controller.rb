@@ -10,13 +10,7 @@ class ContestsController < ApplicationController
   before_action :set_contests, only: %i[index]
 
   # GET /contests
-  def index
-    Rails.logger.info 'sono qui'
-    respond_to do |format|
-      format.turbo_stream { render 'index' }
-      format.html {}
-    end
-  end
+  def index; end
 
   # GET /contests/1
   def show; end

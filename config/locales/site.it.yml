@@ -3,6 +3,9 @@ it:
     generic:
       all: Tutti
       back: Indietro
+      destroy: Elimina
+      destroy_success: Eliminazione avvenuta con successo
+      destroy_fail: Eliminazione fallita
       from: da
       groups: Gruppi
       info: Informazioni generali
@@ -10,12 +13,6 @@ it:
       login_button: Accedi per continuare
       logout: Disconnettiti
       manage: Manage
-      reservable: Prenotabile
-      reserve: Prenota
-      reserved_abort: Annulla prenotazione
-      reserved_abort_confirm: Attenzione! Vuoi veramente annullare la prenotazione 
-      reserved_ended: Prenotazioni terminate
-      reserved_seat: Posti prenotati
       save: Save
       search: Ricerca
       start: Pagina iniziale

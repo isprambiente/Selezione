@@ -13,6 +13,15 @@ module ApplicationHelper
     link_to fa('fa-chevron-left fa-fw', t('site.generic.back')), url, params
   end
 
+  def link_edit(url, **params)
+   link_to fa('fa-pen-to-square fa-fw', t('site.generic.edit')), url, params
+  end
+
+  def link_destroy(url, **params)
+    default = {data: {turbo_method: :delete, turbo_confirm: 'Confermi eliminazione?'}}
+    link_to fa('fa-trash fa-fw', t('site.generic.destroy')), url, default.merge(params)
+  end
+
   def panel_link(icon, text, url, **params)
     params[:class] = "panel-block #{params[:class]}"
     safe_join [link_to(content_tag(:span, fa(icon), class: 'panel-icon') + text, url, params)]

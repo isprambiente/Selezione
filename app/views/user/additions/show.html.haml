@@ -1,9 +1,8 @@
 %turbo-frame#yield
-  %h3.title.has-text-centered
+  %h3.title.is-3.has-text-centered
     %i.fas.fa-calendar
     = @request.title
   .columns
     %aside.column.is-3= render 'user_request_menu'
-    .column
-      %turbo-frame#request
-        %h3.title.is_3 request show
+    .column= render 'show'
+

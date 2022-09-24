@@ -61,6 +61,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_085454) do
 
   create_table "additions", force: :cascade do |t|
     t.bigint "request_id", null: false
+    t.string "title", default: "", null: false
     t.text "description", default: "", null: false
     t.string "url", default: "", null: false
     t.datetime "created_at", null: false

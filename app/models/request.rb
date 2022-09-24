@@ -126,4 +126,8 @@ class Request < ApplicationRecord
     self.confirm = confirmation
     status_editing? ? status_sended! : status_editing!
   end
+  
+  def editable?
+    status_editing? && active?
+  end
 end

@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   resources :contests, only: %i[index show]
   scope module: 'user' do
     resources :users, only: %i[] do
-      resources :requests, except: %i[new destroy]
-      resources :additions
+      resources :requests, except: %i[new destroy] do
+        resources :additions
+      end
     end
   end
 

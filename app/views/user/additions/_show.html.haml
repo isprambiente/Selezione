@@ -1,0 +1,23 @@
+%turbo-frame#request
+  %h4.title.is-4.mt-3.mb-3= fa 'fa-folder-plus fa-fw', t('activerecord.models.addition.other')
+  .box.content
+    %dl
+      %dt Titolo
+      %dd= @addition.title
+    - if @addition.description?
+      %dl
+        %dt Descrizione:
+        %dd= @addition.description
+    - if @addition.url?
+      %dl
+        %dt URL:
+        %dd= link_to @addition.url, @addition.url
+    - if @addition.file.present?
+      %ld
+      %dt Allegato:
+      %dd= link_to fa('fa-paperclip fa-fw', @addition.file.filename), rails_blob_path(@addition.file, disposition: "attachment")
+  .block.has-text-centered
+    = link_back user_request_additions_path(current_user, @request), class: 'button is-info'
+    - if @editable
+      = link_edit edit_user_request_addition_path(current_user, @request, @addition), class: 'button is-success'
+      = link_destroy user_request_addition_path(current_user, @request, @addition), class: 'button is-warning'

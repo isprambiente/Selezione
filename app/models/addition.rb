@@ -25,5 +25,5 @@ class Addition < ApplicationRecord
   has_one_attached :file
 
   validates :request, presence: true
-  validates :description, presence: true
+  validates :title, presence: true
 end

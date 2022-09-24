@@ -1,0 +1,25 @@
+%a.box.list-item.is-hoverable{href: user_request_addition_path(current_user, @request, addition)}
+  .list-item-content
+    .list-item-title= addition.title
+    .list-item-description
+      .field.is-grouped.is-grouped-multiline
+        - if addition.file.present?
+          .control
+            .tags.has-addons 
+              %span.tag.is-success= fa('fa-paperclip fa-fw')
+              %span.tag File presente
+        - if addition.url.present?
+          .control
+            .tags.has-addons
+              %span.tag.is-success= fa('fa-link fa-fw')
+              %span.tag URL presente
+        - if addition.description.present?
+          .control
+            .tags.has-addons
+              %span.tag.is-success= fa('fa-link fa-file-lines')
+              %span.tag Descrizione
+
+  .list-item-controls
+    .buttons.is-right
+      .button= fa 'fa-maximize'
+

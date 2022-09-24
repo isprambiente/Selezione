@@ -14,12 +14,7 @@ class User::RequestsController < User::ApplicationController
   before_action :set_requests, only: %i[index]
 
   # GET /users/:user_id/requests
-  def index
-    respond_to do |format|
-      format.turbo_stream { render 'index' }
-      format.html {}
-    end
-  end
+  def index; end
 
   # GET /users/:user_id/requests/1
   def show; end
