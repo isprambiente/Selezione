@@ -51,11 +51,10 @@ class Request < ApplicationRecord
   validates :profile, presence: true
   validates :status,  presence: true
   validates :status, inclusion: { in: STATUSES_ENDED.values }, if: :ended?
-  validates :status, inclusion: { in: STATUSES_ACTIVE.values }, if: :active?
-  validates :confirm, acceptance: true, presence: true, if: :active?, on: :update
 
-  with_options :active? do
-
+  with_options if: :active? do
+    validates :status, inclusion: { in: STATUSES_ACTIVE.values }
+    validates :confirm, acceptance: true, presence: true, on: :update
   end
 
   with_options if: :status_sended? do
@@ -65,6 +64,10 @@ class Request < ApplicationRecord
     validates :qualification_required?, presence: true, if: :qualifications_requested?
     validates :careers_required?, presence: true
   end
+
+  scope :active, -> { all_included.where contest: { stop_at: Time.zone.now.. } }
+  scope :ended,  -> { all_included.where contest: { stop_at: ..Time.zone.now } }
+  scope :all_included, -> { includes(profile: { area: :contest }) }
 
   # Test if each required question has an answer
   # @return [Array] list of mandatory [Question] that have not an [Answer]

@@ -3,7 +3,7 @@
     = fa 'fa-check', t('activerecord.models.request.other')
   .columns
     %aside.column.is-3
-      = form_with scope: 'filter', url: contests_path, method: :get, data: {turbo_frame: 'contests', controller: 'form', form_target: 'sender'} do |f|
+      = form_with scope: 'filter', url: user_requests_path(current_user), method: :get, data: {turbo_frame: 'requests', controller: 'form', form_target: 'sender'} do |f|
         %nav.panel
           %p.panel-heading= t 'site.request.index.search'
           .panel-block
