@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :requests, except: %i[new destroy] do
         resources :additions
         resources :careers
+        resources :qualifications
       end
     end
   end

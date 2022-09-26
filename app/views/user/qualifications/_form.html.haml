@@ -1,0 +1,48 @@
+= form_with(model: [current_user, user_request, qualification]) do |form| 
+  .columns
+
+    .field.column.is-3
+      = form.label :category, class: 'label'
+      .control= form.select :category, t('site.qualifications.category_list'), {}, class: 'input', required: true, maxlength: 246
+      %p.help.is-danger= qualification.errors[:category].join(' - ')
+
+    .field.column
+      = form.label :title, class: 'label'
+      .control= form.text_field :title, class: 'input', required: true
+      %p.help.is-danger= qualification.errors[:title].join(' - ')
+
+  .columns
+    .field.column.is-9
+      = form.label :istitute, class: 'label'
+      .control= form.text_field :istitute, class: 'input', required: true
+      %p.help.is-danger= qualification.errors[:title].join(' - ')
+
+    .field.column.is-3
+      = form.label :year, class: 'label'
+      .control= form.text_field :year, class: 'input', required: true, maxlength: 246
+      %p.help.is-danger= qualification.errors[:year].join(' - ')
+
+  .columns
+    .field.column
+      = form.label :vote, class: 'label'
+      .control= form.text_field :vote, class: 'input'
+      %p.help.is-danger= qualification.errors[:vote].join(' - ')
+
+    .field.column
+      = form.label :vote_type, class: 'label'
+      .control= form.select :vote_type, t('site.qualifications.vote_type_list'), {}, class: 'input'
+      %p.help.is-danger= qualification.errors[:vote_type].join(' - ')
+
+    .field.column
+      = form.label :duration, class: 'label'
+      .control= form.text_field :duration, class: 'input'
+      %p.help.is-danger= qualification.errors[:duration].join(' - ')
+
+    .field.column
+      = form.label :duration_type, class: 'label'
+      .control= form.select :duration_type, t('site.qualifications.duration_type_list'), {}, class: 'input'
+      %p.help.is-danger= qualification.errors[:duration_type].join(' - ')
+
+  .field.is-grouped.is-grouped-centered
+    %p.control= form.button class: 'button is-success'
+    %p.control= link_back user_request_qualifications_path(current_user, user_request), class: 'button is-info'

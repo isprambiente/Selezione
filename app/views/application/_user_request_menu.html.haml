@@ -6,7 +6,7 @@
     - @request.profile.sections.each do |section|
       = panel_link 'fa-list', section.title, root_path, data: {turbo_frame: 'request'}
     =  panel_link 'fa-briefcase', t('activerecord.models.career.other'), user_request_careers_path(current_user, @request), data: {turbo_frame: 'request'} if @request.profile.careers_enabled?
-    =  panel_link 'fa-graduation-cap', t('activerecord.models.qualification.other'), root_path, data: {turbo_frame: 'request'} if @request.profile.qualifications_enabled?
+    =  panel_link 'fa-graduation-cap', t('activerecord.models.qualification.other'), user_request_qualifications_path(current_user, @request), data: {turbo_frame: 'request'} if @request.profile.qualifications_enabled?
     =  panel_link 'fa-folder-plus', t('activerecord.models.addition.other'), user_request_additions_path(current_user, @request), data: {turbo_frame: 'request'} if @request.profile.others_enabled?
 
 

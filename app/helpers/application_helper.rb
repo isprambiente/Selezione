@@ -34,4 +34,9 @@ module ApplicationHelper
   def yield_title(icon, text)
     content_tag :h3, fa(icon, text), class: 'title has-text-centered'
   end
+
+  def element_description(obj, method, alt=nil)
+    safe_join [content_tag(:h6, t(method, scope: ['activerecord.attributes', obj.class.name.downcase ]), class: 'title is-6'),
+      content_tag(:p, alt || obj.send(method), class: 'subtitle is-6')]
+  end
 end

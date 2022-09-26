@@ -1,0 +1,18 @@
+%turbo-frame#request
+  %h4.title.is-4.mt-3.mb-3= fa 'fa-folder-plus fa-fw', t('activerecord.models.qualification.other')
+  .box.content
+    .columns
+      .column.is-3= element_description qualification, :category, t(qualification.category, scope: 'site.qualifications.category')
+      .column= element_description qualification, :title
+    .columns
+      .column= element_description qualification, :istitute
+      .column.is-3= element_description qualification, :year
+    - if qualification.votable?
+      = element_description qualification, :vote, "#{qualification.vote} / #{qualification.vote_type}"
+    - else
+      = element_description qualification, :duration, "#{qualification.duration} / #{t qualification.duration_type, scope: 'site.qualifications.duration_type'}"
+  .block.has-text-centered
+    = link_back user_request_qualifications_path(current_user, user_request), class: 'button is-info'
+    - if editable
+      = link_edit edit_user_request_qualification_path(current_user, user_request, qualification), class: 'button is-success'
+      = link_destroy user_request_qualification_path(current_user, user_request, qualification), class: 'button is-warning'

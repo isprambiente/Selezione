@@ -1,0 +1,10 @@
+%a.box.list-item.is-hoverable{href: user_request_qualification_path(current_user, user_request, qualification)}
+  .list-item-content
+    .list-item-title= qualification.title
+    .list-item-description
+      .field.is-grouped.is-grouped-multiline
+        .control
+          .tags.has-addons
+            %span.tag.is-success= fa('fa-link fa-file-lines')
+            %span.tag= t qualification.category, scope: 'site.qualifications.category'
+

@@ -25,6 +25,15 @@ it:
         qualifications_requested: Titoli di studio richiesti
         qualifications_alternative: Titoli di studio alternativi ai periodi lavorativi
         others_enabled: Altri titoli
+      qualification:
+        category: Tipologia
+        duration: Durata
+        duration_type: Durata in
+        istitute: Istituto
+        year: Anno
+        title: Titolo
+        vote: Voto
+        vote_type: Voto in
     models:
       addition:
         one: Altro titolo

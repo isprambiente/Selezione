@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# This model manage the {Career} views
+# This Controller manage the {Career} views
 # Only authenticated users can access on this controller
 # Each user access to this controller scoped by his user_id
 #
