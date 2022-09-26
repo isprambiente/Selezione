@@ -11,7 +11,7 @@
 # * {set_request} for {index}
 class User::AdditionsController < User::ApplicationController
   include Requestable
-  before_action :set_addition, only: %i[ show edit update destroy ]
+  before_action :set_addition, only: %i[show edit update destroy]
 
   # GET /users/:user_id/additions?request_id=:request_id
   def index
@@ -40,7 +40,7 @@ class User::AdditionsController < User::ApplicationController
     @addition = @user_request.additions.new(addition_params)
 
     if @addition.save
-      redirect_to user_request_additions_url(current_user), notice: "Addition was successfully created." 
+      redirect_to user_request_additions_url(current_user), notice: 'Addition was successfully created.'
     else
       partial_selector 'new', addition: @addition
     end
@@ -49,7 +49,7 @@ class User::AdditionsController < User::ApplicationController
   # PATCH/PUT /additions/1 or /additions/1.json
   def update
     if @addition.update(addition_params)
-     redirect_to user_request_addition_url(current_user, @user_request, @addition), notice: "Addition was successfully updated."
+      redirect_to user_request_addition_url(current_user, @user_request, @addition), notice: 'Addition was successfully updated.'
     else
       partial_selector 'edit', addition: @addition
     end
@@ -58,7 +58,7 @@ class User::AdditionsController < User::ApplicationController
   # DELETE /additions/1 or /additions/1.json
   def destroy
     @addition.destroy
-    redirect_to user_request_additions_url(current_user, @user_request), notice: destroy_message(@addition) 
+    redirect_to user_request_additions_url(current_user, @user_request), notice: destroy_message(@addition)
   end
 
   private

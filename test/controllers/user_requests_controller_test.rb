@@ -5,7 +5,7 @@ require 'test_helper'
 class RequestsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   setup do
-    @user    = create :user
+    @user = create :user
     @user_request  = create :request, user: @user
     @other_request = create :request
   end
@@ -13,7 +13,7 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
   test 'index require user signed in' do
     get user_requests_url(@user.id)
     assert_response :redirect
-    assert_redirected_to new_user_session_url()
+    assert_redirected_to new_user_session_url
   end
 
   test 'authenticated user should get index' do
@@ -31,8 +31,8 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'authenticated user is required for create request' do
     assert_no_difference ['Request.count'] do
-      post user_requests_url(@user.id), params: { request: { profile_id: create(:profile).id }}
-      end
+      post user_requests_url(@user.id), params: { request: { profile_id: create(:profile).id } }
+    end
     assert_redirected_to new_user_session_url
   end
 
@@ -43,12 +43,12 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to user_request_url(@user.id, Request.last, locale: :it)
-    assert_equal Request.last.user, @user 
+    assert_equal Request.last.user, @user
   end
 
   test 'show request require user signed in' do
     get user_request_url @user, @user_request
-    assert_redirected_to new_user_session_url()
+    assert_redirected_to new_user_session_url
   end
 
   test 'authenticated user can show self request' do
@@ -67,7 +67,7 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
 
   test 'edit request require user signed in' do
     get edit_user_request_url @user, @user_request
-    assert_redirected_to new_user_session_url()
+    assert_redirected_to new_user_session_url
   end
 
   test 'authenticated user can edit self request' do
@@ -82,11 +82,10 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
   end
 
-
   test 'update request require user signed in' do
     patch user_request_url(@user, @user_request), params: { request: { confirm: '1' } }
     get user_request_url @user, @user_request
-    assert_redirected_to new_user_session_url()
+    assert_redirected_to new_user_session_url
   end
 
   test 'authenticated user can update self request' do
@@ -102,5 +101,4 @@ class RequestsControllerTest < ActionDispatch::IntegrationTest
     patch user_request_url(@other_request.user, @other_request), params: { request: { confirm: '1' } }
     assert_response :unauthorized
   end
-
 end

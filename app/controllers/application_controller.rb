@@ -30,7 +30,6 @@ class ApplicationController < ActionController::Base
     render 'errors/error_401', layout: true, status: :unauthorized
   end
 
-
   def destroy_message(obj)
     status = obj.destroyed? ? 'success' : 'fail'
     I18n.t "site.generic.destroy_#{status}"

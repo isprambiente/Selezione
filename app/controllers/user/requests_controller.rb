@@ -53,7 +53,7 @@ class User::RequestsController < User::ApplicationController
 
   # Set @pagy, @contests filtered by {filter_params}
   def set_requests
-    scope = ['active','ended'].include?(filter_params[:type]) ? filter_params[:type] : 'all_included'
+    scope = %w[active ended].include?(filter_params[:type]) ? filter_params[:type] : 'all_included'
     @text = ['profiles.title ilike :text or areas.title ilike :text or contests.title ilike :text', { text: "%#{filter_params[:text]}%" }] if filter_params[:text].present?
     @pagy, @requests = pagy(current_user.requests.send(scope).where(@text).order(:id), items: 12)
   end

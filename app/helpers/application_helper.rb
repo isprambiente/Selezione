@@ -14,11 +14,11 @@ module ApplicationHelper
   end
 
   def link_edit(url, **params)
-   link_to fa('fa-pen-to-square fa-fw', t('site.generic.edit')), url, params
+    link_to fa('fa-pen-to-square fa-fw', t('site.generic.edit')), url, params
   end
 
   def link_destroy(url, **params)
-    default = {data: {turbo_method: :delete, turbo_confirm: 'Confermi eliminazione?'}}
+    default = { data: { turbo_method: :delete, turbo_confirm: 'Confermi eliminazione?' } }
     link_to fa('fa-trash fa-fw', t('site.generic.destroy')), url, default.merge(params)
   end
 

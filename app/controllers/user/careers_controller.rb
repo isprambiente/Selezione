@@ -1,6 +1,18 @@
+# frozen_string_literal: true
+
+# This model manage the {Career} views
+# Only authenticated users can access on this controller
+# Each user access to this controller scoped by his user_id
+#
+# === before_action
+# * authenticate_user! for all action
+# * check_right! for all action
+# * {Requestable#set_prerequisite} for all
+# * {set_request} for {show}, {edit}, {update}, {destroy}
+# * {set_requests} for {index}
 class User::CareersController < User::ApplicationController
   include Requestable
-  before_action :set_career, only: %i[ show edit update destroy ]
+  before_action :set_career, only: %i[show edit update destroy]
 
   # GET /users/:user_id/requests/:request_id/careers
   def index
@@ -29,7 +41,7 @@ class User::CareersController < User::ApplicationController
     @career = @user_request.careers.new(career_params)
 
     if @career.save
-      redirect_to user_request_careers_url(current_user, @user_request), notice: "Career was successfully created." 
+      redirect_to user_request_careers_url(current_user, @user_request), notice: 'Career was successfully created.'
     else
       partial_selector 'new', career: @career
     end
@@ -38,7 +50,7 @@ class User::CareersController < User::ApplicationController
   # PATCH/PUT /user/:user_id/requests/:request_id/careers/1
   def update
     if @career.update(career_params)
-      redirect_to user_request_career_url(current_user, @user_request, @career), notice: "Career was successfully updated." 
+      redirect_to user_request_career_url(current_user, @user_request, @career), notice: 'Career was successfully updated.'
     else
       partial_selector 'edit', career: @career
     end
@@ -47,19 +59,19 @@ class User::CareersController < User::ApplicationController
   # DELETE /user/:user_id/requests/:request_id/careers/1
   def destroy
     @career.destroy
-    redirect_to user_request_careers_url(current_user, @user_request), notice: "Career was successfully destroyed." 
+    redirect_to user_request_careers_url(current_user, @user_request), notice: 'Career was successfully destroyed.'
   end
 
   private
-    
-    # Set @career with params :id
-    # @return [Object] {Addition} istance.
-    def set_career
-      @career = @user_request.careers.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def career_params
-      params.require(:career).permit(:employer, :category, :description, :start_on, :stop_on)
-    end
+  # Set @career with params :id
+  # @return [Object] {Addition} istance.
+  def set_career
+    @career = @user_request.careers.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def career_params
+    params.require(:career).permit(:employer, :category, :description, :start_on, :stop_on)
+  end
 end

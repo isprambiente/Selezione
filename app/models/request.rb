@@ -125,11 +125,11 @@ class Request < ApplicationRecord
 
   # cicle status_sended! and status_editing!
   # @return [Boolean] true if updated
-  def switch!(confirmation=nil)
+  def switch!(confirmation = nil)
     self.confirm = confirmation
     status_editing? ? status_sended! : status_editing!
   end
-  
+
   def editable?
     status_editing? && active?
   end

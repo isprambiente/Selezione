@@ -8,7 +8,6 @@
 # == before_action
 # * authenticate_user!
 # * {check_right}
-
 class User::ApplicationController < ApplicationController
   before_action :authenticate_user!
   before_action :check_right, except: :skip_check_right_list
@@ -24,5 +23,4 @@ class User::ApplicationController < ApplicationController
   def skip_check_right_list
     %i[]
   end
-
 end
