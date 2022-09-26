@@ -1,0 +1,14 @@
+%turbo-frame#request
+  %h4.title.is-4.mt-3.mb-3= fa 'fa-folder-plus fa-fw', t('activerecord.models.career.other')
+  .list
+    = render partial: 'career', collection: careers, locals: {user_request: user_request}
+    - if @editable
+      %a.box.list-item.is-hoverable{href: new_user_request_career_path(current_user, user_request)}
+        .list-item-image
+          .image
+            %img.fa.fa-circle-plus.fa-2x
+        .list-item-content
+          .list-item-title #{t 'site.generic.new'} #{t 'activerecord.models.career.one' }
+        .list-item-controls
+          .buttons.is-right
+            %button.button= fa 'fa-maximize'

@@ -18,13 +18,21 @@ it:
       start: Pagina iniziale
       text: Testo
       to: a
+    careers:
+      category:
+        ti: Tempo indeterminato
+        td: Tempo determinato
+        cc: Collaborazione a progetto
+        co: Co. co. co
+        ar: Assegno di ricerca
+        stage: Stage
+        other: Altro
     contests:
       index: 
         search: Ricerca concorsi
       scope:
         active: Attivi
         ended: Scaduti
-      search: Ricerca eventi
     admin:
     editor:
     committee: 

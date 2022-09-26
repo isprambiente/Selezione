@@ -56,28 +56,16 @@ class User::AdditionsController < User::ApplicationController
 
   # DELETE /additions/1 or /additions/1.json
   def destroy
-    @addition.destroy
+    @request.addition.destroy
     redirect_to user_request_additions_url(current_user, @request), notice: destroy_message(@addition) 
   end
 
   private
-  
-  # Set @request with params :request_id
-  # @return [Object] {Request} istance
-  def set_request
-    @request = current_user.requests.find(params[:request_id])
-  end
 
   # Set @addition with params :id
   # @return [Object] {Addition} istance
   def set_addition
     @addition = @request.additions.find(params[:id])
-  end
-
-  # set @additions from @request
-  # @return [Object] ActiveRecord istance
-  def set_additions
-    @request.additions
   end
 
   # Filter params to manage {Addition}.

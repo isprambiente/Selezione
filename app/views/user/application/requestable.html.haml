@@ -1,0 +1,5 @@
+%turbo-frame#yield
+  = yield_title 'fa-calendar', user_request.title
+  .columns
+    %aside.column.is-3= render 'user_request_menu'
+    .column= render partial: action_name, locals: local_assigns

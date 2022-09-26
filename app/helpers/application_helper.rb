@@ -30,4 +30,8 @@ module ApplicationHelper
   def panel_link_back(url, **_params)
     panel_link 'fa-chevron-left', t('site.generic.back'), url
   end
+
+  def yield_title(icon, text)
+    content_tag :h3, fa(icon, text), class: 'title has-text-centered'
+  end
 end

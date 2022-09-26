@@ -1,25 +1,19 @@
 = form_with(model: [current_user, @request, addition]) do |form|
-  - if addition.errors.any?
-    <div style="color: red">
-    <h2><%= pluralize(addition.errors.count, "error") %> prohibited this addition from being saved:</h2>
-    <ul>
-    <% addition.errors.each do |error| %>
-    <li><%= error.full_message %></li>
-    <% end %>
-    </ul>
-    </div>
-
   .field
     = form.label :title, class: 'label'
     .control= form.text_field :title, class: 'input', required: true, maxlength: 246
+    %p.help.is-danger= addition.errors[:title].join(' - ')
+
  
   .field
     = form.label :description, class: 'label'
     .control= form.text_area :description, class: 'textarea'
+    %p.help.is-danger= addition.errors[:description].join(' - ')
 
   .field
     = form.label :url, class: 'label'
     .control= form.url_field :url, class: 'input'
+    %p.help.is-danger= addition.errors[:url].join(' - ')
 
   .field
     = form.label :file, class: 'label'

@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :user do
-    resources :careers
-  end
   resources :contests, only: %i[index show]
   scope module: 'user' do
     resources :users, only: %i[] do
       resources :requests, except: %i[new destroy] do
         resources :additions
+        resources :careers
       end
     end
   end

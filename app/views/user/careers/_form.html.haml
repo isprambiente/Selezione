@@ -1,0 +1,31 @@
+= form_with(model: [current_user, user_request, career]) do |form| 
+  .field
+    = form.label :employer, class: 'label'
+    .control= form.text_field :employer, class: 'input', required: true, maxlength: 246
+    %p.help.is-danger= career.errors[:employer].join(' - ')
+
+  .field
+    = form.label :category, class: 'label'
+    .control= form.text_field :category, class: 'input', required: true
+    %p.help.is-danger= career.errors[:category].join(' - ')
+
+  .field
+    = form.label :description, class: 'label'
+    .control= form.text_area :description, class: 'textarea', required: true
+    %p.help.is-danger= career.errors[:description].join(' - ')
+  .columns
+    .field.column
+      = form.label :start_on, class: 'label'
+      .control= form.date_field :start_on, class: 'input', required: true
+      %p.help.is-danger= career.errors[:start_on].join(' - ')
+
+    .field.column
+      = form.label :stop_on, class: 'label'
+      .control= form.date_field :stop_on, class: 'input', required: true
+      %p.help.is-danger
+        = career.errors[:stop_on].join(' - ')
+        = career.errors[:length].join(' - ')
+
+  .field.is-grouped.is-grouped-centered
+    %p.control= form.button class: 'button is-success'
+    %p.control= link_back user_request_careers_path(current_user, user_request), class: 'button is-info'
