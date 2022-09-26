@@ -30,10 +30,10 @@ module Requestable
     @editable
   end
 
-  def partial_selector(value=action_name, **new_options)
-    options = { user_request: @request, editable: @editable }.merge new_options
+  def partial_selector(my_action_name=action_name, **new_options)
+    options = { user_request: @request, editable: @editable, my_action_name: my_action_name}.merge new_options
     if turbo_frame_request?
-      render partial: value, locals: options
+      render partial: my_action_name, locals: options
     else
       render action: 'requestable', locals: options
     end
