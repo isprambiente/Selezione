@@ -1,4 +1,4 @@
-= form_with(model: [current_user, @request, addition]) do |form|
+= form_with(model: [current_user, user_request, addition]) do |form|
   .field
     = form.label :title, class: 'label'
     .control= form.text_field :title, class: 'input', required: true, maxlength: 246
@@ -21,4 +21,4 @@
 
   .field.is-grouped.is-grouped-centered
     %p.control= form.button class: 'button is-success'
-    %p.control= link_back user_request_additions_path(current_user, @request), class: 'button is-info'
+    %p.control= link_back user_request_additions_path(current_user, user_request), class: 'button is-info'

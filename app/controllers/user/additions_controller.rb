@@ -15,49 +15,50 @@ class User::AdditionsController < User::ApplicationController
 
   # GET /users/:user_id/additions?request_id=:request_id
   def index
-    @additions = @request.additions
-    render partial: 'index' if turbo_frame_request?
+    @additions = @user_request.additions
+    partial_selector additions: @additions
   end
 
   # GET /additions/1 or /additions/1.json
   def show
-    render partial: 'show' if turbo_frame_request?
+    partial_selector addition: @addition
   end
 
   # GET /additions/new
   def new
     @addition = Addition.new
-    render partial: 'new' if turbo_frame_request?
+    partial_selector addition: @addition
   end
 
   # GET /additions/1/edit
   def edit
+    partial_selector addition: @addition
   end
 
   # POST /additions or /additions.json
   def create
-    @addition = @request.additions.new(addition_params)
+    @addition = @user_request.additions.new(addition_params)
 
     if @addition.save
       redirect_to user_request_additions_url(current_user), notice: "Addition was successfully created." 
     else
-      render :new, status: :unprocessable_entity 
+      partial_selector 'new', addition: @addition
     end
   end
 
   # PATCH/PUT /additions/1 or /additions/1.json
   def update
     if @addition.update(addition_params)
-     redirect_to user_request_addition_url(current_user, @request, @addition), notice: "Addition was successfully updated."
+     redirect_to user_request_addition_url(current_user, @user_request, @addition), notice: "Addition was successfully updated."
     else
-      render :edit, status: :unprocessable_entity 
+      partial_selector 'edit', addition: @addition
     end
   end
 
   # DELETE /additions/1 or /additions/1.json
   def destroy
-    @request.addition.destroy
-    redirect_to user_request_additions_url(current_user, @request), notice: destroy_message(@addition) 
+    @addition.destroy
+    redirect_to user_request_additions_url(current_user, @user_request), notice: destroy_message(@addition) 
   end
 
   private
@@ -65,7 +66,7 @@ class User::AdditionsController < User::ApplicationController
   # Set @addition with params :id
   # @return [Object] {Addition} istance
   def set_addition
-    @addition = @request.additions.find(params[:id])
+    @addition = @user_request.additions.find(params[:id])
   end
 
   # Filter params to manage {Addition}.

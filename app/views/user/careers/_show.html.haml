@@ -4,22 +4,22 @@
     .columns
       %dl.column
         %dt= t 'activerecord.attributes.career.employer'
-        %dd= @career.employer
+        %dd= career.employer
       %dl.column.is-narrow
         %dt= t 'activerecord.attributes.career.category'
-        %dd= t @career.category, scope: 'site.careers.category'
+        %dd= t career.category, scope: 'site.careers.category'
     %dl
       %dt= t 'activerecord.attributes.career.description'
-      %dd= @career.description
+      %dd= career.description
     .columns
       %dl.column
         %dt= t 'activerecord.attributes.career.start_on'
-        %dd= l @career.start_on
+        %dd= l career.start_on
       %dl.column
         %dt= t 'activerecord.attributes.career.start_on'
-        %dd= l @career.stop_on
+        %dd= l career.stop_on
   .block.has-text-centered
     = link_back user_request_careers_path(current_user, user_request), class: 'button is-info'
-    - if @editable
-      = link_edit edit_user_request_career_path(current_user, user_request, @career), class: 'button is-success'
-      = link_destroy user_request_career_path(current_user, user_request, @career), class: 'button is-warning'
+    - if editable
+      = link_edit edit_user_request_career_path(current_user, user_request, career), class: 'button is-success'
+      = link_destroy user_request_career_path(current_user, user_request, career), class: 'button is-warning'
