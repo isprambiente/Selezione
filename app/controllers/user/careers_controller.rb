@@ -29,7 +29,7 @@ class User::CareersController < User::ApplicationController
     @career = @user_request.careers.new(career_params)
 
     if @career.save
-      redirect_to user_request_career_url(current_user, @user_request, @career), notice: "Career was successfully created." 
+      redirect_to user_request_careers_url(current_user, @user_request), notice: "Career was successfully created." 
     else
       partial_selector 'new', career: @career
     end
