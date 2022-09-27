@@ -1,13 +1,14 @@
 = form_with(model: [current_user, user_request, career]) do |form| 
-  .field
-    = form.label :employer, class: 'label'
-    .control= form.text_field :employer, class: 'input', required: true, maxlength: 246
-    %p.help.is-danger= career.errors[:employer].join(' - ')
+  .columns
+    .field.column
+      = form.label :employer, class: 'label'
+      .control= form.text_field :employer, class: 'input', required: true, maxlength: 246
+      %p.help.is-danger= career.errors[:employer].join(' - ')
 
-  .field
-    = form.label :category, class: 'label'
-    .control= form.text_field :category, class: 'input', required: true
-    %p.help.is-danger= career.errors[:category].join(' - ')
+    .field.column.is-4
+      = form.label :category, class: 'label'
+      .control= form.select :category, t('site.careers.category_list'), {}, class: 'input', required: true
+      %p.help.is-danger= career.errors[:category].join(' - ')
 
   .field
     = form.label :description, class: 'label'

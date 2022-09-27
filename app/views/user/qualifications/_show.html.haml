@@ -1,16 +1,15 @@
 %turbo-frame#request
-  %h4.title.is-4.mt-3.mb-3= fa 'fa-folder-plus fa-fw', t('activerecord.models.qualification.other')
-  .box.content
-    .columns
-      .column.is-3= element_description qualification, :category, t(qualification.category, scope: 'site.qualifications.category')
-      .column= element_description qualification, :title
-    .columns
-      .column= element_description qualification, :istitute
-      .column.is-3= element_description qualification, :year
-    - if qualification.votable?
-      = element_description qualification, :vote, "#{qualification.vote} / #{qualification.vote_type}"
-    - else
-      = element_description qualification, :duration, "#{qualification.duration} / #{t qualification.duration_type, scope: 'site.qualifications.duration_type'}"
+  .box.details
+    %h4.title.is-4= fa 'fa-graduation-cap fa-fw', t('activerecord.models.qualification.one')
+    .columns.is-multiline
+      .column.is-3= details_element qualification, :category, alt: t(qualification.category, scope: 'site.qualifications.category')
+      .column.is-9= details_element qualification, :title
+      .column.is-9= details_element qualification, :istitute
+      .column.is-3= details_element qualification, :year
+      - if qualification.votable?
+        .column= details_element qualification, :vote, alt: "#{qualification.vote} / #{qualification.vote_type}"
+      - else
+        .column= details_element qualification, :duration, alt: "#{qualification.duration} / #{t qualification.duration_type, scope: 'site.qualifications.duration_type'}"
   .block.has-text-centered
     = link_back user_request_qualifications_path(current_user, user_request), class: 'button is-info'
     - if editable

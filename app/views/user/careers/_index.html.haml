@@ -1,5 +1,5 @@
 %turbo-frame#request
-  %h4.title.is-4.mt-3.mb-3= fa 'fa-folder-plus fa-fw', t('activerecord.models.career.other')
+  %h4.title.is-4.mt-3.mb-3= fa 'fa-briefcase fa-fw', t('activerecord.models.career.other')
   .list
     = render partial: 'career', collection: careers, locals: {user_request: user_request}
     - if @editable

@@ -35,8 +35,11 @@ module ApplicationHelper
     content_tag :h3, fa(icon, text), class: 'title has-text-centered'
   end
 
-  def element_description(obj, method, alt=nil)
-    safe_join [content_tag(:h6, t(method, scope: ['activerecord.attributes', obj.class.name.downcase ]), class: 'title is-6'),
-      content_tag(:p, alt || obj.send(method), class: 'subtitle is-6')]
+  def details_element(obj, method, alt: nil, dl_opt: {}, dt_opt: {}, dd_opt: {})
+    content_tag :dl, safe_join( [content_tag( :dt, t(method, scope: ['activerecord.attributes', obj.class.name.downcase ]), dt_opt), content_tag(:dd, alt || obj.send(method), dd_opt)]), dl_opt
+  end
+
+  def details_description(obj, method, alt: nil, dl_opt: {class: 'description'}, dt_opt: {}, dd_opt: {})
+    details_element(obj, method, alt: alt, dl_opt: dl_opt, dt_opt: dt_opt, dd_opt: dd_opt)
   end
 end

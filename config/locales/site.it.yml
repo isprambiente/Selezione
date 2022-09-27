@@ -6,13 +6,15 @@ it:
       destroy: Elimina
       destroy_success: Eliminazione avvenuta con successo
       destroy_fail: Eliminazione fallita
+      edit: Modifica
       from: da
       groups: Gruppi
       info: Informazioni generali
       login: Accedi
-      login_button: Accedi per continuare
+      login_button: Accedi pe r continuare
       logout: Disconnettiti
       manage: Manage
+      new: Aggiungi
       save: Save
       search: Ricerca
       start: Pagina iniziale
@@ -27,6 +29,14 @@ it:
         ar: Assegno di ricerca
         stage: Stage
         other: Altro
+      category_list:
+        'Tempo indeterminato': ti
+        'Tempo determinato': td
+        'Collaborazione a progetto': cc
+        'Co. co. co': co
+        'Assegno di ricerca': ar
+        'Stage': Stage
+        'Altro': other
     contests:
       index: 
         search: Ricerca concorsi

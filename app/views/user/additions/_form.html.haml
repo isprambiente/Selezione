@@ -10,14 +10,14 @@
     .control= form.text_area :description, class: 'textarea'
     %p.help.is-danger= addition.errors[:description].join(' - ')
 
-  .field
-    = form.label :url, class: 'label'
-    .control= form.url_field :url, class: 'input'
-    %p.help.is-danger= addition.errors[:url].join(' - ')
-
-  .field
-    = form.label :file, class: 'label'
-    .control= form.file_field :file, class: 'input'
+  .columns
+    .field.column
+      = form.label :url, class: 'label'
+      .control= form.url_field :url, class: 'input'
+      %p.help.is-danger= addition.errors[:url].join(' - ')
+    .field.column
+      = form.label :file, class: 'label'
+      .control= form.file_field :file, class: 'input'
 
   .field.is-grouped.is-grouped-centered
     %p.control= form.button class: 'button is-success'

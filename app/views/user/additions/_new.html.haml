@@ -1,6 +1,7 @@
 %turbo-frame#request
-  %h4.title.is-4.mt-3.mb-3
-    = fa 'fa-folder-plus fa-fw'
-    = t 'site.generic.new'
-    = t 'activerecord.models.addition.one'
-  .box= render "form", addition: addition, user_request: user_request
+  .box
+    %h4.title.is-4
+      = fa 'fa-folder-plus fa-fw'
+      = t 'site.generic.new'
+      = t 'activerecord.models.addition.one'
+    = render "form", addition: addition, user_request: user_request

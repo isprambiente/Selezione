@@ -10,6 +10,12 @@ it:
       area:
         code: Codice
         title: Titolo
+      career:
+        category: Tipologia
+        description: Descrizione
+        employer: Datore di lavoro
+        start_on: Inizio
+        stop_on: Fine
       contest:
         code: Codice
         title: Titolo

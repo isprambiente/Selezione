@@ -1,25 +1,15 @@
 %turbo-frame#request
-  %h4.title.is-4.mt-3.mb-3= fa 'fa-folder-plus fa-fw', t('activerecord.models.career.other')
-  .box.content
-    .columns
-      %dl.column
-        %dt= t 'activerecord.attributes.career.employer'
-        %dd= career.employer
-      %dl.column.is-narrow
-        %dt= t 'activerecord.attributes.career.category'
-        %dd= t career.category, scope: 'site.careers.category'
-    %dl
-      %dt= t 'activerecord.attributes.career.description'
-      %dd= career.description
-    .columns
-      %dl.column
-        %dt= t 'activerecord.attributes.career.start_on'
-        %dd= l career.start_on
-      %dl.column
-        %dt= t 'activerecord.attributes.career.start_on'
-        %dd= l career.stop_on
-  .block.has-text-centered
-    = link_back user_request_careers_path(current_user, user_request), class: 'button is-info'
-    - if editable
-      = link_edit edit_user_request_career_path(current_user, user_request, career), class: 'button is-success'
-      = link_destroy user_request_career_path(current_user, user_request, career), class: 'button is-warning'
+
+  .box.details
+    %h4.title.is-4= fa 'fa-briefcase fa-fw', t('activerecord.models.career.one')
+    .columns.is-multiline
+      .column.is-8= details_element career, :employer
+      .column.is-4= details_element career, :category, alt: t(career.category, scope: 'site.careers.category')
+      .column.is-12= details_description career, :description
+      .column.is-6= details_element career, :start_on, alt: l(career.start_on)
+      .column.is-6= details_element career, :stop_on, alt: l(career.stop_on)
+    .block.has-text-centered
+      = link_back user_request_careers_path(current_user, user_request), class: 'button is-info'
+      - if editable
+        = link_edit edit_user_request_career_path(current_user, user_request, career), class: 'button is-success'
+        = link_destroy user_request_career_path(current_user, user_request, career), class: 'button is-warning'
