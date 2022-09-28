@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :additions
         resources :careers
         resources :qualifications
+        resources :sections, only: %i[show]
       end
     end
   end

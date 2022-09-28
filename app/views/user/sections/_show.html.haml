@@ -1,0 +1,6 @@
+%turbo-frame#request
+  .box
+    %h4.title.is-4= fa 'fa-briefcase fa-fw', t('activerecord.models.career.one')
+    .block.content= section.top.body.html_safe
+    .block.content= section.bottom.body.html_safe
+    .block.has-text-centered= link_back user_request_careers_path(current_user, user_request), class: 'button is-info'
