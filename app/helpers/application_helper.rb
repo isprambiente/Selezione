@@ -36,10 +36,10 @@ module ApplicationHelper
   end
 
   def details_element(obj, method, alt: nil, dl_opt: {}, dt_opt: {}, dd_opt: {})
-    content_tag :dl, safe_join( [content_tag( :dt, t(method, scope: ['activerecord.attributes', obj.class.name.downcase ]), dt_opt), content_tag(:dd, alt || obj.send(method), dd_opt)]), dl_opt
+    content_tag :dl, safe_join([content_tag(:dt, t(method, scope: ['activerecord.attributes', obj.class.name.downcase]), dt_opt), content_tag(:dd, alt || obj.send(method), dd_opt)]), dl_opt
   end
 
-  def details_description(obj, method, alt: nil, dl_opt: {class: 'description'}, dt_opt: {}, dd_opt: {})
+  def details_description(obj, method, alt: nil, dl_opt: { class: 'description' }, dt_opt: {}, dd_opt: {})
     details_element(obj, method, alt: alt, dl_opt: dl_opt, dt_opt: dt_opt, dd_opt: dd_opt)
   end
 end
