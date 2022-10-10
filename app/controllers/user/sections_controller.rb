@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User::SectionsController < User::ApplicationController
   include Requestable
   before_action :set_section
@@ -8,9 +10,10 @@ class User::SectionsController < User::ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_section
-      @section = @user_request.profile.sections.includes(:questions).find(params[:id])
-      @answers = @section.questions.map{|q| @user_request.answers.find_or_initialize_by question: q}
-    end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_section
+    @section = @user_request.profile.sections.includes(:questions).find(params[:id])
+    @answers = @section.questions.map { |q| @user_request.answers.find_or_initialize_by question: q }
+  end
 end

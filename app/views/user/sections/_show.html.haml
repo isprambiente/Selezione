@@ -6,6 +6,3 @@
       = render partial: 'user/questions/question', collection: @answers, as: :answer, locals: {user_request: user_request} 
     - else
       = render @answers, locals: {user_request: user_request}
-
-    .block.content= raw section.bottom
-    .block.has-text-centered= link_back user_request_careers_path(current_user, user_request), class: 'button is-info'
