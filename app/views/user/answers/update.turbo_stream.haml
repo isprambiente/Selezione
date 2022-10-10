@@ -1,0 +1,3 @@
+%turbo-stream{action: "update", target: dom_id(@answer.question)}
+  %template
+    = render partial: 'user/questions/question', locals: {user_request: @user_request, answer: @answer}, formats: [ :html ]

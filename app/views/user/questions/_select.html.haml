@@ -1,0 +1,5 @@
+.field
+  = render partial: 'user/questions/label', locals: {form: form, answer: answer}
+  .select.is-fullwidth= form.select :value, answer.options.pluck(:title), {include_blank: true}, data: {action: "form#sendForm"}
+  %p.help.is-danger= answer.errors[:value].join(' - ')
+

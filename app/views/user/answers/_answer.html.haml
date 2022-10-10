@@ -1,0 +1,12 @@
+.details
+  %dl
+    %dt
+      - if answer.errors.present?
+        %span.icon.has-text-danger= fa 'fa-circle-xmark'
+      - elsif answer.value?
+        %span.icon.has-text-success= fa 'fa-circle-check'
+      - elsif answer.mandatory?
+        %span.icon.has-text-warning= fa 'fa-circle-exclamation fa-fw'
+      %span= answer.title
+
+    %dd= answer.value || '--'

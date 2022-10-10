@@ -1,0 +1,4 @@
+%div{id: dom_id(answer.question)}
+  = form_with scope: 'answer', url: user_request_answer_path(current_user, user_request, answer.question), method: :patch, data: {controller: 'form', form_target: 'sender'} do |form|
+    = render partial: "user/questions/#{answer.question.category}", locals: {user_request: user_request, answer: answer, form: form}
+

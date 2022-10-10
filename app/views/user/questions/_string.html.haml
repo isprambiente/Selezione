@@ -1,0 +1,5 @@
+.field
+  = render partial: 'user/questions/label', locals: {form: form, answer: answer}
+  .control= form.text_field :value, value: answer.value, class: 'input #{@status}', data: {action: "keyup->form#delayedSendForm"}
+  %p.help.is-danger= answer.errors[:value].join(' - ')
+

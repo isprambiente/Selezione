@@ -14,6 +14,7 @@ it:
       login_button: Accedi pe r continuare
       logout: Disconnettiti
       manage: Manage
+      mandatory: Risposta obbligatoria
       new: Aggiungi
       save: Save
       search: Ricerca

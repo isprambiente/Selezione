@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-class RequestsControllerTest < ActionDispatch::IntegrationTest
+class User::RequestsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
   setup do
     @user = create :user

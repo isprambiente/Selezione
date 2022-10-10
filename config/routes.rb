@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     resources :users, only: %i[] do
       resources :requests, except: %i[new destroy] do
         resources :additions
+        resources :answers, only: :update
         resources :careers
         resources :qualifications
         resources :sections, only: %i[show]
