@@ -10,6 +10,7 @@ class User::SectionsController < User::ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_section
-      @section = @user_request.profile.sections.find(params[:id])
+      @section = @user_request.profile.sections.includes(:questions).find(params[:id])
+      @answers = @section.questions.map{|q| @user_request.answers.find_or_initialize_by question: q}
     end
 end
