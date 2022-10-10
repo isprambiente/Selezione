@@ -30,7 +30,7 @@ class Answer < ApplicationRecord
   belongs_to :question
   has_one_attached :file
 
-  delegate :category, :category_file?, :options, :mandatory, :multiselectable?, :selectable?, to: :question, allow_nil: true
+  delegate :category, :category_file?, :options, :mandatory?, :multiselectable?, :selectable?, :title, to: :question, allow_nil: true
 
   # validates :request, presence: true
   # validates :question, presence: true
